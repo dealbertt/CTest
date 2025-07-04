@@ -22,10 +22,13 @@ void test3(void){
     return;
 }
 int main(){
-    TestGroup group;
     CTest test = {test_add};
+    /*
+    TestGroup group;
     initGroup(&group);
     addTest(&group, "First try", &test);
     runTests(&group);
+    */
+    ASSERT_EQUALS_INT(4, add(2,2), &test.res);
     return 0;
 }

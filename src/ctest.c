@@ -88,9 +88,9 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 
 void assertEqualsInt(int expected, int actual, const sourceLocation *loc, TestResult *res){
     if(expected == actual){
-        
+        printf("Equals\n");   
     }else{
-
+        printf("Not Equals\n");   
     }
 }
 void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc, TestResult *res){
