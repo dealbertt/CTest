@@ -2,8 +2,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include "../include/ctest.h"
-TestResult result = {0};
-
+TestResult unitResults = {0, 0, 0};
 int sumTest(int a, int b){
     return a + b;
 }
@@ -86,18 +85,33 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 }
 
 
-void assertEqualsInt(int expected, int actual, const sourceLocation *loc, TestResult *res){
+void assertEqualsInt(int expected, int actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
     if(expected == actual){
         printf("Equals\n");   
+        unitResults.assertsPassed++;
     }else{
         printf("Not Equals\n");   
+        unitResults.assertsFailed++;
     }
 }
-void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc, TestResult *res){
+void assertNotEqualsInt(int expected, int actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(expected != actual){
+        printf("assertNotEqualsInt: Passed | %d == %d\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }else{
+        printf("assertNotEqualsInt: Failed | %d != %d\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }
+}
+
+void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc){
     if(expected == actual){
         
     }else{
 
     }
 }
+
 

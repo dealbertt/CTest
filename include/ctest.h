@@ -48,8 +48,9 @@ typedef struct {
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression);
 bool testAssert(bool expr, const sourceLocation *loc, const char *expression, TestResult *result);
 
-void assertEqualsInt(int expected, int actual, const sourceLocation *loc, TestResult *res);
-void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc, TestResult *res);
+void assertEqualsInt(int expected, int actual, const sourceLocation *loc);
+void assertNotEqualsInt(int expected, int actual, const sourceLocation *loc);
+void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc);
 
 
 #if DEBUG_ASSERT_ENABLED
@@ -59,11 +60,11 @@ void assertEqualsStr(const char *expected, const char *actual, const sourceLocat
     #define DEBUG_ASSERT(Expr)
 #endif
 
-#define ASSERT_EQUALS_INT(exp, act, res) \
-    assertEqualsInt((exp), (act), &CUR_SOURCE_LOCATION, (res))
+#define ASSERT_EQUALS_INT(exp, act) \
+    assertEqualsInt((exp), (act), &CUR_SOURCE_LOCATION)
 
-#define ASSERT_EQUALS_STR(exp, act, res) \
-    assertEqualsStr((exp), (act), &CUR_SOURCE_LOCATION, (res))
+#define ASSERT_EQUALS_STR(exp, act) \
+    assertEqualsStr((exp), (act), &CUR_SOURCE_LOCATION)
 
 
 
