@@ -19,13 +19,13 @@ bool assertEqualInt(int expected, int (*funcPointer)(int, int), int a, int b){
     }
 }
 
-
 int initGroup(TestGroup *group){
     for(int i = 0; i < MAX_TESTS; i++){
         group->testOccupied[i] = false;
     }
     return 0;
 }
+
 int addTest(TestGroup *group, const char *name, CTest *test){
     for(int i = 0; i < MAX_TESTS; i++){
         if(!group->testOccupied[i]){
@@ -74,11 +74,30 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
         result->testPassed = expr;
         printf("Assertion Failed! ");
         printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
+
         return expr;
     }else{
         result->assertsPassed++;
         result->testPassed = expr;
+
         return expr;
     }
 
 }
+
+
+void assertEqualsInt(int expected, int actual, const sourceLocation *loc, TestResult *res){
+    if(expected == actual){
+        
+    }else{
+
+    }
+}
+void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc, TestResult *res){
+    if(expected == actual){
+
+    }else{
+
+    }
+}
+
