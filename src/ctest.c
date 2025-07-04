@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include "../include/ctest.h"
+TestResult result = {0};
 
 int sumTest(int a, int b){
     return a + b;
@@ -18,13 +19,6 @@ bool assertEqualInt(int expected, int (*funcPointer)(int, int), int a, int b){
     }
 }
 
-
-bool assertEqualTest(int expected, int (*funcPointer)(int count, ...), int count, ...){
-    va_list list;
-    va_start(list, count);
-
-    return false;
-}
 
 int initGroup(TestGroup *group){
     for(int i = 0; i < MAX_TESTS; i++){
@@ -50,10 +44,24 @@ int runTests(TestGroup *group){
     for(int i = 0; i < MAX_TESTS; i++){
         if(group->testOccupied[i]){
             printf("Running test: %s\n", group->test[i].name);
-            group->test[i].testName();
+            group->test[i].func();
         }
     }
     return 0;
 }
 
 
+
+
+//ASSERTION PART --------------------------------
+bool doAssert(bool expr, const sourceLocation *loc, const char *expression){
+    if(!expr){
+        printf("Assertion Failed! ");
+        printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
+        return expr;
+    }else{
+        printf("Assertion Passed! ");
+        printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
+        return expr;
+    }
+}

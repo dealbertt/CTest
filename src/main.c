@@ -6,10 +6,9 @@ int add(int a, int b){
     return a + b;
 }
 void test_add(void){
-    int a = 2;
-    int b = 3;
     DEBUG_ASSERT(add(2, 3) == 2);
     DEBUG_ASSERT(add(3, 3) == 6);
+    DEBUG_ASSERT(add(-3, -3) == -6);
 }
 
 int main(){
