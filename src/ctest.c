@@ -44,9 +44,10 @@ int runTests(TestGroup *group){
     for(int i = 0; i < MAX_TESTS; i++){
         if(group->testOccupied[i]){
             printf("Running test: %s\n", group->test[i].name);
-            group->test[i].func();
+                group->test[i].func(&group->test[i].res);
         }
     }
+     
     return 0;
 }
 
@@ -64,4 +65,20 @@ bool doAssert(bool expr, const sourceLocation *loc, const char *expression){
         printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
         return expr;
     }
+}
+
+bool testAssert(bool expr, const sourceLocation *loc, const char *expression, TestResult *result){
+    result->totalAsserts++;
+    if(!expr){
+        result->assertsFailed++;
+        result->testPassed = expr;
+        printf("Assertion Failed! ");
+        printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
+        return expr;
+    }else{
+        result->assertsPassed++;
+        result->testPassed = expr;
+        return expr;
+    }
+
 }

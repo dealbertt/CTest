@@ -1,14 +1,14 @@
-#include <stdio.h>
 #define DEBUG_ASSERT_ENABLED 1
 #include "../include/ctest.h"
 
 int add(int a, int b){
     return a + b;
 }
-void test_add(void){
-    DEBUG_ASSERT(add(2, 3) == 2);
-    DEBUG_ASSERT(add(3, 3) == 6);
-    DEBUG_ASSERT(add(-3, -3) == -6);
+//You have to bind a testResult to each assert, in order to track the results of said tests
+void test_add(TestResult *res){
+    DEBUG_ASSERT(add(2, 3) == 2, res);
+    DEBUG_ASSERT(add(3, 3) == 6, res);
+    DEBUG_ASSERT(add(-3, -3) == -6, res);
 }
 
 int main(){
