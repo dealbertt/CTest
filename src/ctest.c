@@ -59,12 +59,4 @@ int runTests(TestGroup *group){
     return 0;
 }
 
-int main(){
-    TestGroup group;
-    CTest test = {test_add};
-    addTest(&group, "First try", &test);
-    runTests(&group);
-
-    return 0;
-}
 
