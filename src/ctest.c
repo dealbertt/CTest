@@ -85,7 +85,7 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 }
 
 
-void assertEqualsInt(int expected, int actual, const sourceLocation *loc){
+void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
         printf("assertEqualsInt: Passed | %d == %d\n", expected, actual); 
@@ -95,7 +95,7 @@ void assertEqualsInt(int expected, int actual, const sourceLocation *loc){
         unitResults.assertsFailed++;
     }
 }
-void assertNotEqualsInt(int expected, int actual, const sourceLocation *loc){
+void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected != actual){
         printf("assertNotEqualsInt: Passed | %d == %d\n", expected, actual); 
@@ -106,11 +106,14 @@ void assertNotEqualsInt(int expected, int actual, const sourceLocation *loc){
     }
 }
 
-void assertEqualsStr(const char *expected, const char *actual, const sourceLocation *loc){
+void ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
     if(expected == actual){
-        
+        printf("assertEqualsStr: Passed | %s == %s\n", expected, actual); 
+        unitResults.assertsPassed++;
     }else{
-
+        printf("assertEqualsStr: Failed | %s != %s\n", expected, actual); 
+        unitResults.assertsFailed++;
     }
 }
 
