@@ -29,6 +29,10 @@ int main(){
     addTest(&group, "First try", &test);
     runTests(&group);
     */
-    ASSERT_EQUALS_INT(4, add(2,2));
+    assertEqualsInt(4, add(2,2));
+    assertNotEqualsInt(5, add(3, 2));
+    assertNotEqualsInt(6, add(3, 2));
+    assertEqualsStr("Hola Mundo", "Hello World\n");
+
     return 0;
 }
