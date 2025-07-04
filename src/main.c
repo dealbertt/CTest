@@ -1,23 +1,22 @@
 #include <stdio.h>
-#include "../include/ctest.h"
 #define DEBUG_ASSERT_ENABLED 1
+#include "../include/ctest.h"
 
-#include "../include/assert.h"
+int add(int a, int b){
+    return a + b;
+}
 void test_add(void){
-    printf("Hola que tal\n");
+    int a = 2;
+    int b = 3;
+    DEBUG_ASSERT(add(2, 3) == 2);
+    DEBUG_ASSERT(add(3, 3) == 6);
 }
 
 int main(){
-    /*
     TestGroup group;
     CTest test = {test_add};
     initGroup(&group);
     addTest(&group, "First try", &test);
     runTests(&group);
-    */
-    int a = 2;
-    int b = 3;
-    DEBUG_ASSERT(a == b);
-    DEBUG_ASSERT(a < b);
     return 0;
 }

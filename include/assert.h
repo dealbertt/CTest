@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
 typedef struct {
     const char *fileName;
     unsigned line_number;

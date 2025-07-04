@@ -1,8 +1,8 @@
 #ifndef CTEST_H
 #define CTEST_H
 #include <stdbool.h>
-#include <assert.h>
 #include <string.h>
+#include "assert.h"
 #define MAX_TESTS 20
 typedef struct{
     void (*testName)(void);
