@@ -19,9 +19,6 @@ bool assertEqualInt(int expected, int (*funcPointer)(int, int), int a, int b){
 }
 
 
-void test_add(void){
-    printf("Hola que tal\n");
-}
 bool assertEqualTest(int expected, int (*funcPointer)(int count, ...), int count, ...){
     va_list list;
     va_start(list, count);
