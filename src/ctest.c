@@ -88,10 +88,10 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 void assertEqualsInt(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("Equals\n");   
+        printf("assertEqualsInt: Passed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }else{
-        printf("Not Equals\n");   
+        printf("assertEqualsInt: Failed | %d != %d\n", expected, actual); 
         unitResults.assertsFailed++;
     }
 }

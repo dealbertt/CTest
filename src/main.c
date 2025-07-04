@@ -29,6 +29,6 @@ int main(){
     addTest(&group, "First try", &test);
     runTests(&group);
     */
-    ASSERT_EQUALS_INT(4, add(2,2), &test.res);
+    ASSERT_EQUALS_INT(4, add(2,2));
     return 0;
 }
