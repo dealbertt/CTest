@@ -46,6 +46,7 @@ int main(){
     int array2[] = {1,2,3};
     int array3[] = {3,2,1};
 
+
     assertEqualsInt(4, add(2,2));
     assertEqualsFloat(a, b);
     assertEqualsDouble(c, d);
@@ -63,6 +64,5 @@ int main(){
     assertFalse(2 < 4);
     assertNotNull(ptr);
 
-    
     return 0;
 }

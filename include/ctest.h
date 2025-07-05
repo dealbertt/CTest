@@ -93,6 +93,26 @@ void ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation 
 #define assertEqualsArrayInt(exp, act) \
     ASSERT_EQUALS_ARRAY_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
+void ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc);
+
+#define assertEqualsArrayShort(exp, act) \
+    ASSERT_EQUALS_ARRAY_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
+
+void ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc);
+
+#define assertEqualsArrayLong(exp, act) \
+    ASSERT_EQUALS_ARRAY_LONG((exp), (act), &CUR_SOURCE_LOCATION);
+
+
+void ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc);
+
+#define assertEqualsArrayFloat(exp, act) \
+    ASSERT_EQUALS_ARRAY_Float((exp), (act), &CUR_SOURCE_LOCATION);
+
+void ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc);
+
+#define assertEqualsArrayDouble(exp, act) \
+    ASSERT_EQUALS_ARRAY_Double((exp), (act), &CUR_SOURCE_LOCATION);
 //ASSERT_NOT_EQUALS OF TYPES
 void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 
