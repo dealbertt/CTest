@@ -88,12 +88,24 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEqualsInt: Passed | %d == %d\n", expected, actual); 
+        printf("assertEquals(int): Passed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }else{
-        printf("assertEqualsInt: Failed | %d != %d\n", expected, actual); 
+        printf("assertEquals(int): Failed | %d != %d\n", expected, actual); 
         unitResults.assertsFailed++;
     }
+}
+
+void ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(expected == actual){
+        printf("assertEquals(float): Passed | %f == %f\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }else{
+        printf("assertEquals(float): Failed | %f != %f\n", expected, actual); 
+        unitResults.assertsFailed++;
+    }
+
 }
 void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;

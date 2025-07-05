@@ -29,8 +29,12 @@ int main(){
     runTests(&group);
     */
     FILE *ptr = NULL;
+    float a = 5;
+    float b = 5;
 
-    assertEqualsInt(4, add(2,2));
+    assertEquals(4, add(2,2));
+    assertEquals(a, b);
+
 
     assertNotEqualsInt(5, add(3, 2));
     assertNotEqualsInt(6, add(3, 2));
