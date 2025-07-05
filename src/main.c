@@ -29,10 +29,19 @@ int main(){
     runTests(&group);
     */
     FILE *ptr = NULL;
+
     float a = 5;
     float b = 5;
+
     double c = 2;
     double d = 4;
+
+    short e = 5;
+    short f = 6;
+
+    long g = 1200000;
+    long h = 2400000;
+
     int array1[] = {1,2,3};
     int array2[] = {1,2,3};
     int array3[] = {3,2,1};
@@ -42,6 +51,8 @@ int main(){
     assertEqualsDouble(c, d);
     assertEqualsArrayInt(array1, array2);
     assertEqualsArrayInt(array1, array3);
+    assertEqualsShort(e, f);
+    assertEqualsLong(g, h);
 
 
     assertNotEqualsInt(5, add(3, 2));

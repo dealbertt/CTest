@@ -97,6 +97,28 @@ void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     }
 }
 
+void ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(expected == actual){
+        printf("assertEquals(short): Passed | %hd == %hd\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }else{
+        printf("assertEquals(short): Failed | %hd != %hd\n", expected, actual); 
+        unitResults.assertsFailed++;
+    }
+}
+
+void ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(expected == actual){
+        printf("assertEquals(long): Passed | %ld == %ld\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }else{
+        printf("assertEquals(long): Failed | %ld != %ld\n", expected, actual); 
+        unitResults.assertsFailed++;
+    }
+}
+
 void ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
@@ -116,6 +138,17 @@ void ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *
         unitResults.assertsPassed++;
     }else{
         printf("assertEquals(double): Failed | %f != %f\n", expected, actual); 
+        unitResults.assertsFailed++;
+    }
+}
+
+void ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(expected == actual){
+        printf("assertEquals(char): Passed | %c == %c\n", expected, actual); 
+        unitResults.assertsPassed++;
+    }else{
+        printf("assertEquals(char): Failed | %c != %c\n", expected, actual); 
         unitResults.assertsFailed++;
     }
 }

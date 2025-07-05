@@ -55,6 +55,17 @@ void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 #define assertEqualsInt(exp, act) \
     ASSERT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
+
+void ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc);
+
+#define assertEqualsShort(exp, act) \
+    ASSERT_EQUALS_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
+
+void ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc);
+
+#define assertEqualsLong(exp, act) \
+    ASSERT_EQUALS_LONG((exp), (act), &CUR_SOURCE_LOCATION);
+
 void ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc);
 
 #define assertEqualsFloat(exp, act) \
@@ -64,6 +75,11 @@ void ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *
 
 #define assertEqualsDouble(exp, act) \
     ASSERT_EQUALS_DOUBLE((exp), (act), &CUR_SOURCE_LOCATION);
+
+void ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc);
+
+#define assertEqualsChar(exp, act) \
+    ASSERT_EQUALS_CHAR((exp), (act), &CUR_SOURCE_LOCATION);
 
 
 void ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc);
@@ -100,9 +116,6 @@ void ASSERT_NOT_NULL(void *expr, const sourceLocation *loc);
 
 #define assertNotNull(Expr) \
     ASSERT_NOT_NULL((Expr), &CUR_SOURCE_LOCATION);
-
-
-
 
 
 
