@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <stdbool.h>
+#include <assert.h>
 #include "../include/ctest.h"
 TestResult unitResults = {0, 0, 0};
+
+AssertStruct arrayAsserts[MAX_ASSERTS];
 int sumTest(int a, int b){
     return a + b;
 }
@@ -54,6 +58,11 @@ int runTests(TestGroup *group){
 
 
 //ASSERTION PART --------------------------------
+void displayAssertResults(){
+    for(int i = 0; i < MAX_ASSERTS; i++){
+
+    }
+}
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression){
     if(!expr){
         printf("Assertion Failed! ");
@@ -103,7 +112,11 @@ void ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc
         printf("assertEquals(short): Passed | %hd == %hd\n", expected, actual); 
         unitResults.assertsPassed++;
     }else{
+        red();
         printf("assertEquals(short): Failed | %hd != %hd\n", expected, actual); 
+        white();
+        printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
+
         unitResults.assertsFailed++;
     }
 }
@@ -219,10 +232,10 @@ void ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const source
 void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected != actual){
-        printf("assertNotEqualsInt: Passed | %d != %d\n", expected, actual); 
+        printf("assertNotEquals(int): Passed | %d != %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }else{
-        printf("assertNotEqualsInt: Failed | %d == %d\n", expected, actual); 
+        printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }
 }
@@ -232,9 +245,9 @@ void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
 //ASSERT BOOLEANS
 void ASSERT_TRUE(bool actual, const sourceLocation *loc){
     if(actual){
-        printf("assertEqualsTrue: Passed | %d == true\n", actual); 
+        printf("assertTrue: Passed | %d == true\n", actual); 
     }else{
-        printf("assertEqualsTrue: Failed | %d != true\n", actual); 
+        printf("assertTrue: Failed | %d != true\n", actual); 
     }
 }
 

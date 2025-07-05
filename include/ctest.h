@@ -2,8 +2,16 @@
 #define CTEST_H
 #include <stdbool.h>
 #include <string.h>
-#include "assert.h"
+
+#define clear() printf("\033[H\033[J")
+#define red() printf("\033[31m")
+#define blue() printf("\033[34m")
+#define green() printf("\033[32m")
+#define yellow() printf("\033[33m")
+#define white() printf("\033[0m")
 #define MAX_TESTS 20
+#define MAX_ASSERTS 50
+
 typedef struct{
     unsigned int totalAsserts;
     unsigned int assertsPassed;
@@ -31,11 +39,18 @@ int addTest(TestGroup *group, const char *name, CTest *test);
 int runTests(TestGroup *group);
 
 
+void displayAssertResults();
 typedef struct {
     const char *fileName;
     unsigned line_number;
     const char* functionName;
 } sourceLocation;
+
+typedef struct{
+    char description[20]; 
+    sourceLocation loc;
+    bool passed;
+}AssertStruct;
 
 #define CUR_SOURCE_LOCATION (sourceLocation){__FILE__, __LINE__, __func__}
 
