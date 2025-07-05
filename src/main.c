@@ -22,7 +22,6 @@ void test3(void){
     return;
 }
 int main(){
-    CTest test = {test_add};
     /*
     TestGroup group;
     initGroup(&group);

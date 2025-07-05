@@ -98,10 +98,10 @@ void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
 void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected != actual){
-        printf("assertNotEqualsInt: Passed | %d == %d\n", expected, actual); 
+        printf("assertNotEqualsInt: Passed | %d != %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }else{
-        printf("assertNotEqualsInt: Failed | %d != %d\n", expected, actual); 
+        printf("assertNotEqualsInt: Failed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
     }
 }
