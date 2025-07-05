@@ -32,8 +32,8 @@ int main(){
     float a = 5;
     float b = 5;
 
-    assertEquals(4, add(2,2));
-    assertEquals(a, b);
+    assertEqualsInt(4, add(2,2));
+    assertEqualsFloat(a, b);
 
 
     assertNotEqualsInt(5, add(3, 2));

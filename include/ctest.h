@@ -51,13 +51,14 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 
 void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 
-#define assertEquals(exp, act) \
+#define assertEqualsInt(exp, act) \
     ASSERT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
 void ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc);
 
-#define assertEquals(exp, act) \
-    ASSERT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
+#define assertEqualsFloat(exp, act) \
+    ASSERT_EQUALS_FLOAT((exp), (act), &CUR_SOURCE_LOCATION);
+
 void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 
 #define assertNotEqualsInt(exp, act) \
