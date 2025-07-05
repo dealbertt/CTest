@@ -133,10 +133,10 @@ void ASSERT_FALSE(bool actual, const sourceLocation *loc){
     }
 }
 
-void ASSERT_NOT_NULL(const char *expr, const sourceLocation *loc){
+void ASSERT_NOT_NULL(void *expr, const sourceLocation *loc){
     if(expr != NULL){
-        printf("assertNotNull: Passed | %s is not null\n", expr); 
+        printf("assertNotNull: Passed |\n"); 
     }else{
-        printf("assertNotNull: Failed | %s is null\n", expr); 
+        printf("assertNotNull: Failed |\n"); 
     }
 }

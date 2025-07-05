@@ -74,7 +74,7 @@ void ASSERT_FALSE(bool actual, const sourceLocation *loc);
 #define assertFalse(act) \
     ASSERT_FALSE((act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_NOT_NULL(const char *expr, const sourceLocation *loc);
+void ASSERT_NOT_NULL(void *expr, const sourceLocation *loc);
 
 #define assertNotNull(Expr) \
     ASSERT_NOT_NULL((Expr), &CUR_SOURCE_LOCATION);
