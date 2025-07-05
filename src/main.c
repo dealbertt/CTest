@@ -31,9 +31,17 @@ int main(){
     FILE *ptr = NULL;
     float a = 5;
     float b = 5;
+    double c = 2;
+    double d = 4;
+    int array1[] = {1,2,3};
+    int array2[] = {1,2,3};
+    int array3[] = {3,2,1};
 
     assertEqualsInt(4, add(2,2));
     assertEqualsFloat(a, b);
+    assertEqualsDouble(c, d);
+    assertEqualsArrayInt(array1, array2);
+    assertEqualsArrayInt(array1, array3);
 
 
     assertNotEqualsInt(5, add(3, 2));
