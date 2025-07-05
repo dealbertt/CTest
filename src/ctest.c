@@ -117,4 +117,26 @@ void ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLoc
     }
 }
 
+void ASSERT_TRUE(bool actual, const sourceLocation *loc){
+    if(actual){
+        printf("assertEqualsTrue: Passed | %d == true\n", actual); 
+    }else{
+        printf("assertEqualsTrue: Failed | %d != true\n", actual); 
+    }
+}
 
+void ASSERT_FALSE(bool actual, const sourceLocation *loc){
+    if(!actual){
+        printf("assertFalse: Passed | %d == false\n", actual); 
+    }else{
+        printf("assertFalse: Failed | %d != false\n", actual); 
+    }
+}
+
+void ASSERT_NOT_NULL(const char *expr, const sourceLocation *loc){
+    if(expr != NULL){
+        printf("assertNotNull: Passed | %s is not null\n", expr); 
+    }else{
+        printf("assertNotNull: Failed | %s is null\n", expr); 
+    }
+}
