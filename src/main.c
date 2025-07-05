@@ -28,10 +28,18 @@ int main(){
     addTest(&group, "First try", &test);
     runTests(&group);
     */
+    FILE *ptr = NULL;
+
     assertEqualsInt(4, add(2,2));
+
     assertNotEqualsInt(5, add(3, 2));
     assertNotEqualsInt(6, add(3, 2));
-    assertEqualsStr("Hola Mundo", "Hello World\n");
 
+    assertEqualsStr("Hola Mundo", "Hello World");
+    assertTrue(2 < 4);
+    assertFalse(2 < 4);
+    assertNotNull(ptr);
+
+    
     return 0;
 }
