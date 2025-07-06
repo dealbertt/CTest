@@ -90,6 +90,23 @@ int reportAssertString(char *message, bool passed, char *expected, char *actual,
     return 0;
 }
 
+int reportAssertBool(char *message, bool passed, bool expected, bool actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %d vs Actual: %d\n",expected, actual);
+        
+    }
+
+    return 0;
+}
+
+int reportAssertNULL(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %s vs Actual: %s\n",expected, actual);
+    }
+    return 0;
+}
 
 //ASSERTION PART --------------------------------
 void displayAssertResults(){
@@ -189,7 +206,7 @@ bool ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc
 bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(double): Passed | %f == %f\n", expected, actual); 
+        //printf("assertEquals(double): Passed | %f == %f\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
@@ -230,11 +247,12 @@ bool ASSERT_EQUALS_STR(char *expected, char *actual, const sourceLocation *loc){
 bool ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation *loc){
     int result = memcmp(expected, actual, sizeof(&expected));
     if(!result){
-        printf("assertEqualsArray(int): Passed | Array expected == Array Actual\n"); 
+        //printf("assertEqualsArray(int): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEqualsArray(int): Failed | Array expected != Array Actual\n"); 
+        //printf("assertEqualsArray(int): Failed | Array expected != Array Actual\n"); 
+        reportAssertInt("assertEqualsArrayInt", false, *expected, *actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -242,11 +260,12 @@ bool ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation 
 
 bool ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc){
     if(memcmp(expected, actual, sizeof(&expected))){
-        printf("assertEqualsArray(short): Passed | Array expected == Array Actual\n"); 
+        //printf("assertEqualsArray(short): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEqualsArray(short): Failed | Array expected != Array Actual\n"); 
+        //printf("assertEqualsArray(short): Failed | Array expected != Array Actual\n"); 
+        reportAssertInt("assertEqualsArrayInt", false, *expected, *actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -254,11 +273,12 @@ bool ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLoc
 
 bool ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc){
     if(memcmp(expected, actual, sizeof(&expected))){
-        printf("assertEqualsArray(long): Passed | Array expected == Array Actual\n"); 
+        //printf("assertEqualsArray(long): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEqualsArray(long): Failed | Array expected != Array Actual\n"); 
+        //printf("assertEqualsArray(long): Failed | Array expected != Array Actual\n"); 
+        reportAssertInt("assertEqualsArrayInt", false, *expected, *actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -266,11 +286,12 @@ bool ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocati
 
 bool ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc){
     if(memcmp(expected, actual, sizeof(&expected))){
-        printf("assertEqualsArray(float): Passed | Array expected == Array Actual\n"); 
+        //printf("assertEqualsArray(float): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEqualsArray(float): Failed | Array expected != Array Actual\n"); 
+        //printf("assertEqualsArray(float): Failed | Array expected != Array Actual\n"); 
+        reportAssertFloat("assertEqualsArrayInt", false, *expected, *actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -278,11 +299,12 @@ bool ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLoc
 
 bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc){
     if(memcmp(expected, actual, sizeof(&expected))){
-        printf("assertEqualsArray(double): Passed | Array expected == Array Actual\n"); 
+        //printf("assertEqualsArray(double): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEqualsArray(double): Failed | Array expected != Array Actual\n"); 
+        //printf("assertEqualsArray(double): Failed | Array expected != Array Actual\n"); 
+        reportAssertInt("assertEqualsArrayInt", false, *expected, *actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -293,11 +315,12 @@ bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const source
 bool ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected != actual){
-        printf("assertNotEquals(int): Passed | %d != %d\n", expected, actual); 
+        //printf("assertNotEquals(int): Passed | %d != %d\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
+        reportAssertInt("assertNotEqualsInt", false, expected, actual, loc);
+        //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
         return false;
     }
@@ -308,10 +331,11 @@ bool ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
 //ASSERT BOOLEANS
 bool ASSERT_TRUE(bool actual, const sourceLocation *loc){
     if(actual){
-        printf("assertTrue: Passed | %d == true\n", actual); 
+        //printf("assertTrue: Passed | %d == true\n", actual); 
         return actual;
     }else{
-        printf("assertTrue: Failed | %d != true\n", actual); 
+        //printf("assertTrue: Failed | %d != true\n", actual); 
+        reportAssertBool("assertTrue", actual, true, actual, loc);
         return actual;
     }
 }
@@ -321,7 +345,8 @@ bool ASSERT_FALSE(bool actual, const sourceLocation *loc){
         printf("assertFalse: Passed | %d == false\n", actual); 
         return true;
     }else{
-        printf("assertFalse: Failed | %d != false\n", actual); 
+        //printf("assertFalse: Failed | %d != false\n", actual); 
+        reportAssertBool("assertFalse", actual, false, actual, loc);
         return false;
     }
 }
@@ -330,10 +355,11 @@ bool ASSERT_FALSE(bool actual, const sourceLocation *loc){
 //ASSERT NULL / NOT NULL
 bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc){
     if(expr != NULL){
-        printf("assertNotNull: Passed |\n"); 
+        //printf("assertNotNull: Passed |\n"); 
         return true;
     }else{
-        printf("assertNotNull: Failed |\n"); 
+        //printf("assertNotNull: Failed |\n"); 
+        reportAssertNULL("assertNotNULL", false, "Not NULL", "NULL", loc);
         return false;
     }
 }
