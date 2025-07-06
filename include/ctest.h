@@ -1,6 +1,7 @@
 #ifndef CTEST_H
 #define CTEST_H
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 
 #define clear() printf("\033[H\033[J")
@@ -52,6 +53,11 @@ typedef struct{
     bool passed;
 }AssertStruct;
 
+int reportAssertInt(char *message, bool passed, int expected, int actual, const sourceLocation *loc);
+int reportAssertFloat(char *message, bool passed, float expected, float actual, const sourceLocation *loc);
+int reportAssertChar(char *message, bool passed, char expected, char actual, const sourceLocation *loc);
+int reportAssertString(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc);
+
 #define CUR_SOURCE_LOCATION (sourceLocation){__FILE__, __LINE__, __func__}
 
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression);
@@ -91,13 +97,13 @@ bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *
 #define assertEqualsDouble(exp, act) \
     ASSERT_EQUALS_DOUBLE((exp), (act), &CUR_SOURCE_LOCATION);
 
-bool ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_CHAR(char expected, char actual, const sourceLocation *loc);
 
 #define assertEqualsChar(exp, act) \
     ASSERT_EQUALS_CHAR((exp), (act), &CUR_SOURCE_LOCATION);
 
 
-bool ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_STR(char *expected, char *actual, const sourceLocation *loc);
 
 #define assertEqualsStr(exp, act) \
     ASSERT_EQUALS_STR((exp), (act), &CUR_SOURCE_LOCATION);

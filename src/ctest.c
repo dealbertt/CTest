@@ -54,7 +54,41 @@ int runTests(TestGroup *group){
     return 0;
 }
 
+int reportAssertInt(char *message, bool passed, int expected, int actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %d vs Actual: %d\n",expected, actual);
+    }
+    printf("----------------------\n");
+    return 0;
+}
 
+int reportAssertFloat(char *message, bool passed, float expected, float actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %f vs Actual: %f\n",expected, actual);
+    }
+    printf("----------------------\n");
+    return 0;
+}
+
+int reportAssertChar(char *message, bool passed, char expected, char actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %c vs Actual: %c\n",expected, actual);
+        
+    }
+    return 0;
+}
+
+int reportAssertString(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc){
+    if(!passed){
+        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        printf("Expected: %s vs Actual: %s\n",expected, actual);
+        
+    }
+    return 0;
+}
 
 
 //ASSERTION PART --------------------------------
@@ -98,11 +132,10 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(int): Passed | %d == %d\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(int): Failed | %d != %d\n", expected, actual); 
+        reportAssertInt("assertEqualsInt", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -111,13 +144,12 @@ bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
 bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(short): Passed | %hd == %hd\n", expected, actual); 
+        //printf("assertEquals(short): Passed | %hd == %hd\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        red();
-        printf("assertEquals(short): Failed | %hd != %hd\n", expected, actual); 
-        white();
+        reportAssertInt("assertEqualsShort", false, expected, actual, loc);
+        unitResults.assertsFailed++;
         printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
 
         unitResults.assertsFailed++;
@@ -128,11 +160,12 @@ bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc
 bool ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(long): Passed | %ld == %ld\n", expected, actual); 
+        //printf("assertEquals(long): Passed | %ld == %ld\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(long): Failed | %ld != %ld\n", expected, actual); 
+        ////printf("assertEquals(long): Failed | %ld != %ld\n", expected, actual); 
+        reportAssertInt("assertEqualsLong", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -141,11 +174,12 @@ bool ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc){
 bool ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(float): Passed | %f == %f\n", expected, actual); 
+        //printf("assertEquals(float): Passed | %f == %f\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(float): Failed | %f != %f\n", expected, actual); 
+        //printf("assertEquals(float): Failed | %f != %f\n", expected, actual); 
+        reportAssertFloat("assertEqualsFloat", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -159,7 +193,8 @@ bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(double): Failed | %f != %f\n", expected, actual); 
+        //printf("assertEquals(double): Failed | %f != %f\n", expected, actual); 
+        reportAssertInt("assertEqualsDouble", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
@@ -168,23 +203,25 @@ bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *
 bool ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(char): Passed | %c == %c\n", expected, actual); 
+        //printf("assertEquals(char): Passed | %c == %c\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(char): Failed | %c != %c\n", expected, actual); 
+        //printf("assertEquals(char): Failed | %c != %c\n", expected, actual); 
+        reportAssertChar("assertEqualsChar", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }
 }
-bool ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc){
+bool ASSERT_EQUALS_STR(char *expected, char *actual, const sourceLocation *loc){
     unitResults.totalAsserts++;
     if(expected == actual){
-        printf("assertEquals(string): Passed | %s == %s\n", expected, actual); 
+        //printf("assertEquals(string): Passed | %s == %s\n", expected, actual); 
         unitResults.assertsPassed++;
         return true;
     }else{
-        printf("assertEquals(string): Failed | %s != %s\n", expected, actual); 
+        //printf("assertEquals(string): Failed | %s != %s\n", expected, actual); 
+        reportAssertString("assertEqualsString", false, expected, actual, loc);
         unitResults.assertsFailed++;
         return false;
     }

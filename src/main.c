@@ -2,9 +2,11 @@
 #define DEBUG_ASSERT_ENABLED 1
 #include "../include/ctest.h"
 
+
 int add(int a, int b){
     return a + b;
 }
+
 //You have to bind a testResult to each assert, in order to track the results of said tests
 void test_add(TestResult *res){
     DEBUG_ASSERT(add(2, 3) == 2, res);
@@ -46,7 +48,7 @@ int main(){
     int array3[] = {3,2,1};
 
 
-    assertEqualsInt(4, add(2,2));
+    assertEqualsInt(5, add(2,2));
     assertEqualsFloat(a, b);
     assertEqualsDouble(c, d);
     assertEqualsArrayInt(array1, array2);
