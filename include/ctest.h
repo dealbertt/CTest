@@ -65,93 +65,95 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 #endif
 
 //ASSERT_EQUALS OF TYPES
-void ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 
 #define assertEqualsInt(exp, act) \
     ASSERT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
 
-void ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc);
 
 #define assertEqualsShort(exp, act) \
     ASSERT_EQUALS_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc);
 
 #define assertEqualsLong(exp, act) \
     ASSERT_EQUALS_LONG((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc);
 
 #define assertEqualsFloat(exp, act) \
     ASSERT_EQUALS_FLOAT((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc);
 
 #define assertEqualsDouble(exp, act) \
     ASSERT_EQUALS_DOUBLE((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_CHAR(const char expected, const char actual, const sourceLocation *loc);
 
 #define assertEqualsChar(exp, act) \
     ASSERT_EQUALS_CHAR((exp), (act), &CUR_SOURCE_LOCATION);
 
 
-void ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc);
+bool ASSERT_EQUALS_STR(const char *expected, const char *actual, const sourceLocation *loc);
 
 #define assertEqualsStr(exp, act) \
     ASSERT_EQUALS_STR((exp), (act), &CUR_SOURCE_LOCATION);
 
 
-void ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation *loc);
+bool ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation *loc);
 
 #define assertEqualsArrayInt(exp, act) \
     ASSERT_EQUALS_ARRAY_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc);
+bool ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc);
 
 #define assertEqualsArrayShort(exp, act) \
     ASSERT_EQUALS_ARRAY_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc);
+bool ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc);
 
 #define assertEqualsArrayLong(exp, act) \
     ASSERT_EQUALS_ARRAY_LONG((exp), (act), &CUR_SOURCE_LOCATION);
 
 
-void ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc);
+bool ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc);
 
 #define assertEqualsArrayFloat(exp, act) \
     ASSERT_EQUALS_ARRAY_Float((exp), (act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc);
+bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc);
+
 
 #define assertEqualsArrayDouble(exp, act) \
     ASSERT_EQUALS_ARRAY_Double((exp), (act), &CUR_SOURCE_LOCATION);
 //ASSERT_NOT_EQUALS OF TYPES
-void ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
+bool ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
+
 
 #define assertNotEqualsInt(exp, act) \
     ASSERT_NOT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
 
 //ASSERT BOOLEANS
-void ASSERT_TRUE(bool actual, const sourceLocation *loc);
+bool ASSERT_TRUE(bool actual, const sourceLocation *loc);
+
 
 #define assertTrue(act) \
     ASSERT_TRUE((act), &CUR_SOURCE_LOCATION);
 
-void ASSERT_FALSE(bool actual, const sourceLocation *loc);
+bool ASSERT_FALSE(bool actual, const sourceLocation *loc);
 
 #define assertFalse(act) \
     ASSERT_FALSE((act), &CUR_SOURCE_LOCATION);
 
 //ASSERT NULL / NOT NULL
-void ASSERT_NOT_NULL(void *expr, const sourceLocation *loc);
+bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc);
 
 #define assertNotNull(Expr) \
     ASSERT_NOT_NULL((Expr), &CUR_SOURCE_LOCATION);
-
 
 
 #endif
