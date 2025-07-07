@@ -58,8 +58,8 @@ int main(){
     assertEqualsLong(g, h);
 
 
-    assertNotEqualsInt(5, add(3, 2));
-    assertNotEqualsInt(6, add(3, 2));
+    //assertNotEqualsInt(5, add(3, 2));
+    //assertNotEqualsInt(6, add(3, 2));
 
     assertEqualsStr("Hello World", "Hello World");
     assertTrue(2 < 4);

@@ -94,10 +94,13 @@ int reportAssertChar(char *message, bool passed, char expected, char actual, con
         red();
         printf("[FAILED]: ");
         white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
-        printf("Expected: %c vs Actual: %c\n",expected, actual);
-        
+    }else if(passed && VERBOSE_ASSERT){
+        green();
+        printf("[PASSED]: ");
+        white();
     }
+    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    printf("Expected: %c vs Actual: %c\n",expected, actual);
     printf("----------------------\n");
     fflush(stdout);
     return 0;
@@ -108,10 +111,13 @@ int reportAssertString(char *message, bool passed, char *expected, char *actual,
         red();
         printf("[FAILED]: ");
         white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
-        printf("Expected: %s vs Actual: %s\n",expected, actual);
-        
+    }else if(passed && VERBOSE_ASSERT){
+        green();
+        printf("[PASSED]: ");
+        white();
     }
+    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    printf("Expected: %s vs Actual: %s\n",expected, actual);
     printf("----------------------\n");
     fflush(stdout);
     return 0;
@@ -122,9 +128,13 @@ int reportAssertBool(char *message, bool passed, bool expected, bool actual, con
         red();
         printf("[FAILED]: ");
         white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
-        printf("Expected: %d vs Actual: %d\n",expected, actual);
+    }else if(passed && VERBOSE_ASSERT){
+        green();
+        printf("[PASSED]: ");
+        white();
     }
+    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    printf("Expected: %d vs Actual: %d\n",expected, actual);
     printf("----------------------\n");
     fflush(stdout);
     return 0;
@@ -132,9 +142,16 @@ int reportAssertBool(char *message, bool passed, bool expected, bool actual, con
 
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
-        printf("Expected: %s vs Actual: %s\n",expected, actual);
+        red();
+        printf("[FAILED]: ");
+        white();
+    }else if(passed && VERBOSE_ASSERT){
+        green();
+        printf("[PASSED]: ");
+        white();
     }
+    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    printf("Expected: %s vs Actual: %s\n",expected, actual);
     printf("----------------------\n");
     fflush(stdout);
     return 0;
