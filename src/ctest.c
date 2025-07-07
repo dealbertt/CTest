@@ -45,108 +45,93 @@ int runTests(TestGroup *group){
 
 int reportAssertPassed(char *message){
     green();
-    printf("[PASSED]: ");
+    printf("\xE2\x9C\x93\[PASSED]: ");
     white();
     printf("%s\n", message);
     return 0;
 }
 
+int reportAssertFailed(char *message, const sourceLocation *loc){
+    red();
+    printf("[FAILED]: ");
+    white();
+    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    return 0;
+}
+
+int reportAssertFooter(long timeTaken){
+    printf("Time Taken: %ld ms\n", timeTaken);
+    printf("----------------------\n");
+    fflush(stdout);
+    return 0;
+}
+
 int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %d vs Actual: %d\n",expected, actual);
-    }else if(passed && VERBOSE_ASSERT) {
+    }else if(VERBOSE_ASSERT) {
         green();
         printf("[PASSED]: ");
         white();
         printf("%s\n", message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertFloat(char *message, bool passed, float expected, float actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %f vs Actual: %f\n",expected, actual);
     }else if(VERBOSE_ASSERT){
         reportAssertPassed(message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertChar(char *message, bool passed, char expected, char actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %c vs Actual: %c\n",expected, actual);
     }else if(VERBOSE_ASSERT){
         reportAssertPassed(message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertString(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %s vs Actual: %s\n",expected, actual);
     }else if(VERBOSE_ASSERT){
         reportAssertPassed(message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %d vs Actual: %d\n",expected, actual);
     }else if(VERBOSE_ASSERT){
         reportAssertPassed(message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        red();
-        printf("[FAILED]: ");
-        white();
-        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        reportAssertFailed(message, loc);
         printf("Expected: %s vs Actual: %s\n",expected, actual);
     }else if(VERBOSE_ASSERT){
         reportAssertPassed(message);
     }
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
