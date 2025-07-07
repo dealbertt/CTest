@@ -53,12 +53,12 @@ typedef struct{
     bool passed;
 }AssertStruct;
 
-int reportAssertInt(char *message, bool passed, int expected, int actual, const sourceLocation *loc);
-int reportAssertFloat(char *message, bool passed, float expected, float actual, const sourceLocation *loc);
-int reportAssertChar(char *message, bool passed, char expected, char actual, const sourceLocation *loc);
-int reportAssertString(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc);
-int reportAssertBool(char *message, bool passed, bool expected, bool actual, const sourceLocation *loc);
-int reportAssertNULL(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc);
+int reportAssertInt(char *message, bool passed, int expected, int actual, int timeTaken, const sourceLocation *loc);
+int reportAssertFloat(char *message, bool passed, float expected, float actual, int timeTaken, const sourceLocation *loc);
+int reportAssertChar(char *message, bool passed, char expected, char actual, int timeTaken, const sourceLocation *loc);
+int reportAssertString(char *message, bool passed, char *expected, char *actual, int timeTaken, const sourceLocation *loc);
+int reportAssertBool(char *message, bool passed, bool expected, bool actual, int timeTaken, const sourceLocation *loc);
+int reportAssertNULL(char *message, bool passed, char *expected, char *actual, int timeTaken, const sourceLocation *loc);
 
 #define CUR_SOURCE_LOCATION (sourceLocation){__FILE__, __LINE__, __func__}
 
