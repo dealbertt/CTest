@@ -72,6 +72,11 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
     #define DEBUG_ASSERT(Expr)
 #endif
 
+#if VERBOSE_ASSERT_RESULT
+    #define VERBOSE_ASSERT 1 
+#else
+    #define VERBOSE_ASSERT 0
+#endif
 //ASSERT_EQUALS OF TYPES
 bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
 

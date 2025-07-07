@@ -49,7 +49,7 @@ int main(){
     int array3[] = {3,2,1};
 
 
-    assertEqualsInt(5, add(2,2));
+    assertEqualsInt(4, add(2,2));
     assertEqualsFloat(a, b);
     assertEqualsDouble(c, d);
     assertEqualsArrayInt(array1, array2);
