@@ -61,7 +61,7 @@ int main(){
     assertNotEqualsInt(5, add(3, 2));
     assertNotEqualsInt(6, add(3, 2));
 
-    assertEqualsStr("Hola Mundo", "Hello World");
+    assertEqualsStr("Hello World", "Hello World");
     assertTrue(2 < 4);
     assertFalse(2 < 4);
     assertNull(Emptyptr);

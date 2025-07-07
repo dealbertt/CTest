@@ -57,48 +57,68 @@ int runTests(TestGroup *group){
 
 int reportAssertInt(char *message, bool passed, int expected, int actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        red();
+        printf("[FAILED]: ");
+        white();
+        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %d vs Actual: %d\n",expected, actual);
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
 int reportAssertFloat(char *message, bool passed, float expected, float actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        red();
+        printf("[FAILED]: ");
+        white();
+        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %f vs Actual: %f\n",expected, actual);
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
 int reportAssertChar(char *message, bool passed, char expected, char actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        red();
+        printf("[FAILED]: ");
+        white();
+        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %c vs Actual: %c\n",expected, actual);
         
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
 int reportAssertString(char *message, bool passed, char *expected, char *actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        red();
+        printf("[FAILED]: ");
+        white();
+        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %s vs Actual: %s\n",expected, actual);
         
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, const sourceLocation *loc){
     if(!passed){
-        printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+        red();
+        printf("[FAILED]: ");
+        white();
+        printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %d vs Actual: %d\n",expected, actual);
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
@@ -108,6 +128,7 @@ int reportAssertNULL(char *message, bool passed, char *expected, char *actual, c
         printf("Expected: %s vs Actual: %s\n",expected, actual);
     }
     printf("----------------------\n");
+    fflush(stdout);
     return 0;
 }
 
