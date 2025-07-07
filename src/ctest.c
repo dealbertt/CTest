@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <math.h>
 #include "../include/ctest.h"
 TestResult unitResults = {0, 0, 0};
 
@@ -78,6 +79,7 @@ int reportAssertChar(char *message, bool passed, char expected, char actual, con
         printf("Expected: %c vs Actual: %c\n",expected, actual);
         
     }
+    printf("----------------------\n");
     return 0;
 }
 
@@ -87,6 +89,7 @@ int reportAssertString(char *message, bool passed, char *expected, char *actual,
         printf("Expected: %s vs Actual: %s\n",expected, actual);
         
     }
+    printf("----------------------\n");
     return 0;
 }
 
@@ -94,9 +97,8 @@ int reportAssertBool(char *message, bool passed, bool expected, bool actual, con
     if(!passed){
         printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %d vs Actual: %d\n",expected, actual);
-        
     }
-
+    printf("----------------------\n");
     return 0;
 }
 
@@ -105,6 +107,7 @@ int reportAssertNULL(char *message, bool passed, char *expected, char *actual, c
         printf("[FAILED]: %s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
         printf("Expected: %s vs Actual: %s\n",expected, actual);
     }
+    printf("----------------------\n");
     return 0;
 }
 
@@ -201,6 +204,20 @@ bool ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc
         return false;
     }
 
+}
+bool ASSERT_EQUALS_DELTA(float expected, float actual, float delta, const sourceLocation *loc){
+    unitResults.totalAsserts++;
+    if(fabs(expected - actual) <= delta){
+        //printf("assertEquals(float): Passed | %f == %f\n", expected, actual); 
+        unitResults.assertsPassed++;
+        return true;
+    }else{
+        //printf("assertEquals(float): Failed | %f != %f\n", expected, actual); 
+        reportAssertFloat("assertEqualsDelta", false, expected, actual, loc);
+        unitResults.assertsFailed++;
+        return false;
+    }
+    return false;
 }
 
 bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc){
@@ -360,6 +377,17 @@ bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc){
     }else{
         //printf("assertNotNull: Failed |\n"); 
         reportAssertNULL("assertNotNULL", false, "Not NULL", "NULL", loc);
+        return false;
+    }
+}
+
+bool ASSERT_NULL(void *expr, const sourceLocation *loc){
+    if(expr == NULL){
+        //printf("assertNotNull: Passed |\n"); 
+        return true;
+    }else{
+        //printf("assertNotNull: Failed |\n"); 
+        reportAssertNULL("assertNULL", false, "NULL", "not NULL", loc);
         return false;
     }
 }

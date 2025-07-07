@@ -94,6 +94,11 @@ bool ASSERT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc
 #define assertEqualsFloat(exp, act) \
     ASSERT_EQUALS_FLOAT((exp), (act), &CUR_SOURCE_LOCATION);
 
+bool ASSERT_EQUALS_DELTA(float expected, float actual, float delta, const sourceLocation *loc);
+
+#define assertEqualsDelta(exp, act, delta) \
+    ASSERT_EQUALS_DELTA((exp), (act), (delta), &CUR_SOURCE_LOCATION);
+
 bool ASSERT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc);
 
 #define assertEqualsDouble(exp, act) \
@@ -163,5 +168,9 @@ bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc);
 #define assertNotNull(Expr) \
     ASSERT_NOT_NULL((Expr), &CUR_SOURCE_LOCATION);
 
+bool ASSERT_NULL(void *expr, const sourceLocation *loc);
+
+#define assertNull(Expr) \
+    ASSERT_NULL((Expr), &CUR_SOURCE_LOCATION);
 
 #endif

@@ -29,7 +29,8 @@ int main(){
     addTest(&group, "First try", &test);
     runTests(&group);
     */
-    FILE *ptr = NULL;
+    FILE *Emptyptr = NULL;
+    FILE *ptr = fopen("test/main.c", "r");
 
     float a = 5;
     float b = 5;
@@ -57,14 +58,21 @@ int main(){
     assertEqualsLong(g, h);
 
 
-
     assertNotEqualsInt(5, add(3, 2));
     assertNotEqualsInt(6, add(3, 2));
 
     assertEqualsStr("Hola Mundo", "Hello World");
     assertTrue(2 < 4);
     assertFalse(2 < 4);
+    assertNull(Emptyptr);
     assertNotNull(ptr);
+
+    float expected = 5.0;
+    float actual = 2.5 + 3.0;
+    float delta = 0.0001;
+
+    assertEqualsDelta(g, h, delta);
+
 
     return 0;
 }
