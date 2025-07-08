@@ -53,7 +53,7 @@ int reportAssertPassed(char *message){
 
 int reportAssertFailed(char *message, const sourceLocation *loc){
     red();
-    printf("[FAILED]: ");
+    printf("\xE2\x9C\x97[FAILED]: ");
     white();
     printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
     return 0;
