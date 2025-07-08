@@ -56,3 +56,4 @@ dkms.conf
 
 # MacOSX directory store
 .DS_Store
+ctest
