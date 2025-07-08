@@ -67,8 +67,6 @@ int main(){
     assertNull(Emptyptr);
     assertNotNull(ptr);
 
-    float expected = 5.0;
-    float actual = 2.5 + 3.0;
     float delta = 0.0001;
 
     assertEqualsDelta(g, h, delta);
