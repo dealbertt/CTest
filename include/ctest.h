@@ -89,6 +89,7 @@ bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc
 #define assertEqualsShort(exp, act) \
     ASSERT_EQUALS_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
 
+
 bool ASSERT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc);
 
 #define assertEqualsLong(exp, act) \
@@ -147,14 +148,44 @@ bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const source
 
 #define assertEqualsArrayDouble(exp, act) \
     ASSERT_EQUALS_ARRAY_Double((exp), (act), &CUR_SOURCE_LOCATION);
+
+
+
 //ASSERT_NOT_EQUALS OF TYPES
+
 bool ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
-
-
 #define assertNotEqualsInt(exp, act) \
     ASSERT_NOT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
 
 
+bool ASSERT_NOT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc);
+#define assertNotEqualsShort(exp, act) \
+    ASSERT_NOT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
+
+
+bool ASSERT_NOT_EQUALS_LONG(long expected, long actual, const sourceLocation *loc);
+#define assertNotEqualsLong(exp, act) \
+    ASSERT_NOT_EQUALS_LONG((exp), (act), &CUR_SOURCE_LOCATION);
+
+
+bool ASSERT_NOT_EQUALS_FLOAT(float expected, float actual, const sourceLocation *loc);
+#define assertNotEqualsFloat(exp, act) \
+    ASSERT_NOT_EQUALS_FLOAT((exp), (act), &CUR_SOURCE_LOCATION);
+
+
+bool ASSERT_NOT_EQUALS_DOUBLE(double expected, double actual, const sourceLocation *loc);
+#define assertNotEqualsDouble(exp, act) \
+    ASSERT_NOT_EQUALS_DOUBLE((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_CHAR(char expected, char actual, const sourceLocation *loc);
+#define assertNotEqualsChar(exp, act) \
+    ASSERT_NOT_EQUALS_CHAR((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_STR(char *expected, char *actual, const sourceLocation *loc);
+#define assertNotEqualsStr(exp, act) \
+    ASSERT_NOT_EQUALS_STR((exp), (act), &CUR_SOURCE_LOCATION);
+
+//ASSERT NOT EQUALS FOR ARRAY TYPES :( 
 //ASSERT BOOLEANS
 bool ASSERT_TRUE(bool actual, const sourceLocation *loc);
 

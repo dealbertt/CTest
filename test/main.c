@@ -70,6 +70,7 @@ int main(){
     float delta = 0.0001;
 
     assertEqualsDelta(g, h, delta);
+    assertNotEqualsFloat(a, b);
 
 
     return 0;
