@@ -63,6 +63,7 @@ int reportAssertString(char *message, bool passed, char *expected, char *actual,
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc);
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc);
 
+//THIS MIGHT NEED SOME REFINIMENT
 int checkDifferenceArrayInt(int array1[], int array2[]);
 int checkEqualArrayInt(int array1[], int array2[]);
 int checkDifferenceArrayFloat(float array1[], float array2[]);
