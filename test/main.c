@@ -74,8 +74,9 @@ int main(){
     assertNotEqualsInt(4, add(2,2));
     assertNotEqualsFloat(a, b);
     assertNotEqualsDouble(c, d);
-    //assertEqualsArrayInt(array1, array2);
-    //assertEqualsArrayInt(array1, array3);
+    assertEqualsArrayInt(array1, array2); // should pass
+    assertEqualsArrayInt(array1, array3); // should fail
+    assertNotEqualsArrayInt(array1, array2); // should fail aswell
     assertNotEqualsShort(e, f);
     assertNotEqualsLong(g, h);
 

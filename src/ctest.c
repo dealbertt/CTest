@@ -8,6 +8,7 @@
 #include <time.h>
 #include "../include/ctest.h"
 
+
 TestResult unitResults = {0, 0, 0};
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
@@ -37,104 +38,13 @@ int runTests(TestGroup *group){
     for(int i = 0; i < MAX_TESTS; i++){
         if(group->testOccupied[i]){
             printf("Running test: %s\n", group->test[i].name);
-                group->test[i].func(&group->test[i].res);
+            group->test[i].func(&group->test[i].res);
         }
     }
      
     return 0;
 }
 
-int reportAssertPassed(char *message){
-    green();
-    printf("\xE2\x9C\x93\[PASSED]: ");
-    white();
-    printf("%s\n", message);
-    return 0;
-}
-
-int reportAssertFailed(char *message, const sourceLocation *loc){
-    red();
-    printf("\xE2\x9C\x97[FAILED]: ");
-    white();
-    printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
-    return 0;
-}
-
-int reportAssertFooter(long timeTaken){
-    printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
-    fflush(stdout);
-    return 0;
-}
-
-int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %d vs Actual: %d\n",expected, actual);
-    }else if(VERBOSE_ASSERT) {
-        green();
-        printf("[PASSED]: ");
-        white();
-        printf("%s\n", message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
-
-int reportAssertFloat(char *message, bool passed, float expected, float actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %f vs Actual: %f\n",expected, actual);
-    }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
-
-int reportAssertChar(char *message, bool passed, char expected, char actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %c vs Actual: %c\n",expected, actual);
-    }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
-
-int reportAssertString(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %s vs Actual: %s\n",expected, actual);
-    }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
-
-int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %d vs Actual: %d\n",expected, actual);
-    }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
-
-int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc);
-        printf("Expected: %s vs Actual: %s\n",expected, actual);
-    }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
-    }
-    reportAssertFooter(timeTaken);
-    return 0;
-}
 
 //ASSERTION PART --------------------------------
 void displayAssertResults(){
@@ -325,7 +235,7 @@ bool ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation 
     clock_t now = clock();
 
     int result = memcmp(expected, actual, sizeof(&expected));
-    if(!result){
+    if(result == 0){
         //printf("assertEqualsArray(int): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
     }else{
@@ -335,7 +245,8 @@ bool ASSERT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation 
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
 
-    reportAssertInt("assertEqualsArrayInt", result, *expected, *actual, msec, loc);
+    bool isAssertEqual = true;
+    reportAssertArrayInt("assertEqualsArrayInt", result == 0, expected, actual, isAssertEqual, msec, loc);
     return result;
 }
 
@@ -345,7 +256,7 @@ bool ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLoc
     clock_t now = clock();
 
     int result = memcmp(expected, actual, sizeof(&expected));
-    if(result){
+    if(result == 0){
         //printf("assertEqualsArray(short): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
     }else{
@@ -355,7 +266,8 @@ bool ASSERT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLoc
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
     
-    reportAssertInt("assertEqualsArrayInt", result, *expected, *actual, msec, loc);
+    bool isAssertEqual = true;
+    reportAssertArrayInt("assertEqualsArrayShort", result == 0, (int *)expected, (int *)actual, isAssertEqual, msec, loc);
     return result;
 }
 
@@ -365,7 +277,7 @@ bool ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocati
     clock_t now = clock();
 
     int result = memcmp(expected, actual, sizeof(&expected));
-    if(result){
+    if(result == 0){
         //printf("assertEqualsArray(long): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
     }else{
@@ -375,7 +287,8 @@ bool ASSERT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocati
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
 
-    reportAssertInt("assertEqualsArrayInt", result, *expected, *actual, msec, loc);
+    bool isAssertEqual = true;
+    reportAssertArrayInt("assertEqualsArrayLong", result == 0, (int *)expected, (int *)actual, isAssertEqual, msec, loc);
     return result;
 }
 
@@ -385,7 +298,7 @@ bool ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLoc
     clock_t now = clock();
 
     int result = memcmp(expected, actual, sizeof(&expected));
-    if(result){
+    if(result == 0){
         //printf("assertEqualsArray(float): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
     }else{
@@ -395,7 +308,8 @@ bool ASSERT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLoc
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
 
-    reportAssertFloat("assertEqualsArrayInt", result, *expected, *actual, msec, loc);
+    bool isAssertEqual = true;
+    reportAssertArrayFloat("assertEqualsArrayLong", result == 0, expected, actual, isAssertEqual, msec, loc);
     return result;
 }
 
@@ -405,7 +319,7 @@ bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const source
     clock_t now = clock();
 
     int result = memcmp(expected, actual, sizeof(&expected));
-    if(result){
+    if(result == 0){
         //printf("assertEqualsArray(double): Passed | Array expected == Array Actual\n"); 
         unitResults.assertsPassed++;
     }else{
@@ -415,7 +329,8 @@ bool ASSERT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const source
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
 
-    reportAssertInt("assertEqualsArrayInt", result, *expected, *actual, msec, loc);
+    bool isAsserEqual = true;
+    reportAssertArrayDouble("assertEqualsArrayDouble", result == 0, expected, actual, isAsserEqual, msec, loc);
     return result;
 }
 //--------------------------------------------------------
@@ -562,6 +477,102 @@ bool ASSERT_NOT_EQUALS_STR(char *expected, char *actual, const sourceLocation *l
 
     reportAssertString("assertNotEqualsChar", result, expected, actual, msec, loc);
 
+    return result;
+}
+
+
+bool ASSERT_NOT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation *loc){
+    unitResults.totalAsserts++;
+
+    clock_t now = clock();
+
+    bool result = (memcmp(expected, actual, sizeof(&expected)) != 0);
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+    clock_t difference = clock() - now;
+    long msec = difference /  CLOCKS_PER_SEC;
+
+    bool isAsserEqual = false;
+    reportAssertArrayInt("AssertNotEqualsArrayInt", result, expected, actual, isAsserEqual, msec, loc);
+    return result;
+}
+
+bool ASSERT_NOT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc){
+    unitResults.totalAsserts++;
+
+    clock_t now = clock();
+
+    bool result = (memcmp(expected, actual, sizeof(&expected)) != 0);
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+    clock_t difference = clock() - now;
+    long msec = difference /  CLOCKS_PER_SEC;
+
+    bool isAsserEqual = false;
+    reportAssertArrayInt("AssertNotEqualsArrayShort", result, (int *)expected, (int *)actual, isAsserEqual, msec, loc);
+    return result;
+}
+
+bool ASSERT_NOT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc){
+    unitResults.totalAsserts++;
+
+    clock_t now = clock();
+
+    bool result = (memcmp(expected, actual, sizeof(&expected)) != 0);
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+    clock_t difference = clock() - now;
+    long msec = difference /  CLOCKS_PER_SEC;
+
+    bool isAsserEqual = false;
+    reportAssertArrayInt("AssertNotEqualsArrayLong", result, (int *)expected, (int *)actual, isAsserEqual, msec, loc);
+    return result;
+}
+
+bool ASSERT_NOT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc){
+    unitResults.totalAsserts++;
+
+    clock_t now = clock();
+
+    bool result = (memcmp(expected, actual, sizeof(&expected)) != 0);
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+    clock_t difference = clock() - now;
+    long msec = difference /  CLOCKS_PER_SEC;
+
+    bool isAsserEqual = false;
+    reportAssertArrayFloat("AssertNotEqualsArrayFloat", result, expected, actual, isAsserEqual, msec, loc);
+    return result;
+}
+
+bool ASSERT_NOT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc){
+    unitResults.totalAsserts++;
+
+    clock_t now = clock();
+
+    bool result = (memcmp(expected, actual, sizeof(&expected)) != 0);
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+    clock_t difference = clock() - now;
+    long msec = difference /  CLOCKS_PER_SEC;
+
+    bool isAsserEqual = false;
+    reportAssertArrayDouble("AssertNotEqualsArrayFloat", result, expected, actual, isAsserEqual, msec, loc);
     return result;
 }
 //--------------------------------------------------------

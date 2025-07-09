@@ -54,11 +54,21 @@ typedef struct{
 }AssertStruct;
 
 int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc);
+int reportAssertArrayInt(char *message, bool passed, int expected[], int actual[],bool equals, long timeTaken, const sourceLocation *loc);
 int reportAssertFloat(char *message, bool passed, float expected, float actual, long timeTaken, const sourceLocation *loc);
+int reportAssertArrayFloat(char *message, bool passed, float expected[], float actual[], bool isAssertEquals, long timeTaken, const sourceLocation *loc);
+int reportAssertArrayDouble(char *message, bool passed, double expected[], double actual[], bool isAssertEquals, long timeTaken, const sourceLocation *loc);
 int reportAssertChar(char *message, bool passed, char expected, char actual, long timeTaken, const sourceLocation *loc);
 int reportAssertString(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc);
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc);
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc);
+
+int checkDifferenceArrayInt(int array1[], int array2[]);
+int checkEqualArrayInt(int array1[], int array2[]);
+int checkDifferenceArrayFloat(float array1[], float array2[]);
+int checkEqualArrayFloat(float array1[], float array2[]);
+int checkDifferenceArrayDouble(double array1[], double array2[]);
+int checkEqualArrayDouble(double array1[], double array2[]);
 
 #define CUR_SOURCE_LOCATION (sourceLocation){__FILE__, __LINE__, __func__}
 
@@ -186,6 +196,27 @@ bool ASSERT_NOT_EQUALS_STR(char *expected, char *actual, const sourceLocation *l
     ASSERT_NOT_EQUALS_STR((exp), (act), &CUR_SOURCE_LOCATION);
 
 //ASSERT NOT EQUALS FOR ARRAY TYPES :( 
+//
+//
+bool ASSERT_NOT_EQUALS_ARRAY_INT(int expected[], int actual[], const sourceLocation *loc);
+#define assertNotEqualsArrayInt(exp, act) \
+    ASSERT_NOT_EQUALS_ARRAY_INT((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_ARRAY_SHORT(short expected[], short actual[], const sourceLocation *loc);
+#define assertNotEqualsArrayShort(exp, act) \
+    ASSERT_NOT_EQUALS_ARRAY_SHORT((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_ARRAY_LONG(long expected[], long actual[], const sourceLocation *loc);
+#define assertNotEqualsArrayLong(exp, act) \
+    ASSERT_NOT_EQUALS_ARRAY_Long((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_ARRAY_FLOAT(float expected[], float actual[], const sourceLocation *loc);
+#define assertNotEqualsArrayFloat(exp, act) \
+    ASSERT_NOT_EQUALS_ARRAY_FLOAT((exp), (act), &CUR_SOURCE_LOCATION);
+
+bool ASSERT_NOT_EQUALS_ARRAY_DOUBLE(double expected[], double actual[], const sourceLocation *loc);
+#define assertNotEqualsArrayDouble(exp, act) \
+    ASSERT_NOT_EQUALS_ARRAY_DOUBLE((exp), (act), &CUR_SOURCE_LOCATION);
 //ASSERT BOOLEANS
 bool ASSERT_TRUE(bool actual, const sourceLocation *loc);
 
