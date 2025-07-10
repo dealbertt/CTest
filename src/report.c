@@ -1,37 +1,40 @@
 #include <stdio.h>
 #include "../include/ctest.h"
 
-int reportAssertPassed(char *message){
+int reportAssertPassed(char *message, long timeTaken){
     green();
     printf("\xE2\x9C\x93[PASSED]: ");
     white();
     printf("%s\n", message);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
-int reportAssertFailed(char *message, const sourceLocation *loc){
+int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken){
     red();
     printf("\xE2\x9C\x97[FAILED]: ");
     white();
     printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
+    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertFooter(long timeTaken){
     printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
     fflush(stdout);
     return 0;
 }
 
 int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %d vs Actual: %d\n", expected, actual);
+        printf("----------------------\n");
     }else if(VERBOSE_ASSERT) {
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
+        printf("----------------------\n");
+    }else if(VERBOSE_ASSERT) {
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
@@ -43,12 +46,11 @@ int reportAssertArrayInt(char *message, bool passed, int expected[], int actual[
         }else{;
             i = checkEqualArrayInt(expected, actual);
         }
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %d vs Actual: %d in Index %d\n", expected[i], actual[i], i);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
@@ -101,12 +103,11 @@ int checkEqualArrayDouble(double array1[], double array2[]){
 }
 int reportAssertFloat(char *message, bool passed, float expected, float actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %f vs Actual: %f\n", expected, actual);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
@@ -118,12 +119,11 @@ int reportAssertArrayFloat(char *message, bool passed, float expected[], float a
         }else{;
             i = checkEqualArrayFloat(expected, actual);
         }
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %f vs Actual: %f in Index %d\n", expected[i], actual[i], i);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
@@ -135,54 +135,49 @@ int reportAssertArrayDouble(char *message, bool passed, double expected[], doubl
         }else{;
             i = checkEqualArrayDouble(expected, actual);
         }
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %f vs Actual: %f in Index %d\n", expected[i], actual[i], i);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 int reportAssertChar(char *message, bool passed, char expected, char actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %c vs Actual: %c\n", expected, actual);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertString(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %s vs Actual: %s\n", expected, actual);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %d vs Actual: %d\n", expected, actual);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
 
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
-        reportAssertFailed(message, loc);
+        reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %s vs Actual: %s\n", expected, actual);
     }else if(VERBOSE_ASSERT){
-        reportAssertPassed(message);
+        reportAssertPassed(message, timeTaken);
     }
-    reportAssertFooter(timeTaken);
     return 0;
 }
