@@ -20,6 +20,21 @@ A lightweight unit testing framework for C inspired by JUnit, supporting grouped
 ---
 
 ## Getting Started
+First, build the library on the root folder of the repo using the next command:  
+
+```make
+make
+```
+Once the library has been build, in order to install it in your system you can do the next command:  
+
+```make
+sudo make install
+```
+If you want to completely remove the library from your system, just execute the follwing command:  
+
+```make
+sudo make uninstall
+```
 
 Include `ctest.h` in your project and link against the implementation file (not shown here). 
 
@@ -29,6 +44,11 @@ Include `ctest.h` in your project and link against the implementation file (not 
 
 Create tests as functions, group them, and run the suite.
 
+When compiling, make sure to include the following flag:
+
+```cmd
+gcc main.c -o whatevername -lctest
+```
 ---
 
 ## Test Groups & Running Tests
