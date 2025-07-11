@@ -54,20 +54,20 @@ gcc main.c -o whatevername -lctest
 ## Test Groups & Running Tests
 
 ```c
-int initGroup(TestGroup *group);
-int addTest(TestGroup *group, const char *name, CTest *test);
-int runTests(TestGroup *group);
+int initGroup(CTestGroup *group);
+int addTest(CTestGroup *group, const char *name, CTest *test);
+int runTests(CTestGroup *group);
 ```
 
 ### Example
 
 ```c
-void sampleTest(TestResult *res) {
+void sampleTest(CTest *test) {
     assertEqualsInt(5, 2 + 3);
 }
 
 int main() {
-    TestGroup group;
+    CTestGroup group;
     initGroup(&group);
 
     CTest test = { .func = sampleTest };
