@@ -2,7 +2,8 @@
 
 
 void test(struct CTest *test) {
-    cAssert(test, &((struct Assertion){.type = TYPE_INT, .equal = true, .expected.intValue = 4, .actual.intValue = 4}));
+    cAssert(test, &((struct Assertion){.type = TYPE_INT, .equal = true, .expected.intValue = 4, .actual.intValue = 4})); // equal
+    cAssert(test, &((struct Assertion){.type = TYPE_INT, .equal = false, .expected.intValue = 4})); // not null
     cAssert(test, &((struct Assertion){.type = TYPE_CHAR_ARRAY, .equal = true, .expected.stringValue = "Hello World", .actual.stringValue = "Hello World"}));
     cAssert(test, &((struct Assertion){.type = TYPE_CHAR_ARRAY, .equal = false, .expected.stringValue = "Hello, World!", .actual.stringValue = "Hello World"}));
 }
