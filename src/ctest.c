@@ -83,24 +83,6 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
 
 
 //ASSERT_EQUALS OF TYPES
-bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
-    clock_t now = clock();
-
-    unitResults.totalAsserts++;
-
-    bool result = (expected == actual);
-
-    if(result){
-        unitResults.assertsPassed++;
-    }else{
-        unitResults.assertsFailed++;
-    }
-
-    clock_t difference = clock() - now;
-    long msec = difference * 1000 /  CLOCKS_PER_SEC;
-    reportAssertInt("assertEqualsInt", result, expected, actual, msec, loc);
-    return result;
-}
 
 bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourceLocation *loc){
     unitResults.totalAsserts++;

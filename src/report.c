@@ -25,18 +25,6 @@ int reportAssertFooter(long timeTaken){
     return 0;
 }
 
-int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
-    if(!passed){
-        reportAssertFailed(message, loc, timeTaken);
-        printf("Expected: %d vs Actual: %d\n", expected, actual);
-        printf("----------------------\n");
-    }else if(VERBOSE_ASSERT) {
-        reportAssertPassed(message, timeTaken);
-        printf("----------------------\n");
-    }else if(VERBOSE_ASSERT) {
-    }
-    return 0;
-}
 
 int reportAssertArrayInt(char *message, bool passed, int expected[], int actual[], bool equals, long timeTaken, const sourceLocation *loc){
     if(!passed){

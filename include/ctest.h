@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #define clear() printf("\033[H\033[J")
 #define red() printf("\033[31m")
@@ -12,6 +13,20 @@
 #define white() printf("\033[0m")
 #define MAX_TESTS 20
 #define MAX_ASSERTS 50
+
+
+#if DEBUG_ASSERT_ENABLED
+    #define DEBUG_ASSERT(Expr, Result) \
+        testAssert((Expr), &CUR_SOURCE_LOCATION, #Expr, Result)
+#else
+    #define DEBUG_ASSERT(Expr)
+#endif
+
+#ifdef VERBOSE_ASSERT_RESULT
+#define VERBOSE_ASSERT 1 
+#else
+#define VERBOSE_ASSERT 0
+#endif
 
 typedef struct{
     unsigned int totalAsserts;
@@ -53,7 +68,21 @@ typedef struct{
     bool passed;
 }AssertStruct;
 
-int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc);
+int reportAssertPassed(char *message, long timeTaken);
+int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
+int reportAssertFooter(long timeTaken);
+
+static inline int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
+    if(!passed){
+        reportAssertFailed(message, loc, timeTaken);
+        printf("Expected: %d vs Actual: %d\n", expected, actual);
+        printf("----------------------\n");
+    }else if(VERBOSE_ASSERT) {
+        reportAssertPassed(message, timeTaken);
+        printf("----------------------\n");
+    }
+    return 0;
+}
 int reportAssertArrayInt(char *message, bool passed, int expected[], int actual[],bool equals, long timeTaken, const sourceLocation *loc);
 int reportAssertFloat(char *message, bool passed, float expected, float actual, long timeTaken, const sourceLocation *loc);
 int reportAssertArrayFloat(char *message, bool passed, float expected[], float actual[], bool isAssertEquals, long timeTaken, const sourceLocation *loc);
@@ -63,9 +92,6 @@ int reportAssertString(char *message, bool passed, char *expected, char *actual,
 int reportAssertBool(char *message, bool passed, bool expected, bool actual, long timeTaken, const sourceLocation *loc);
 int reportAssertNULL(char *message, bool passed, char *expected, char *actual, long timeTaken, const sourceLocation *loc);
 
-int reportAssertPassed(char *message, long timeTaken);
-int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
-int reportAssertFooter(long timeTaken);
 
 //THIS MIGHT NEED SOME REFINIMENT
 int checkDifferenceArrayInt(int array1[], int array2[]);
@@ -79,21 +105,26 @@ int checkEqualArrayDouble(double array1[], double array2[]);
 
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression);
 bool testAssert(bool expr, const sourceLocation *loc, const char *expression, TestResult *result);
-
-#if DEBUG_ASSERT_ENABLED
-    #define DEBUG_ASSERT(Expr, Result) \
-        testAssert((Expr), &CUR_SOURCE_LOCATION, #Expr, Result)
-#else
-    #define DEBUG_ASSERT(Expr)
-#endif
-
-#if VERBOSE_ASSERT_RESULT
-    #define VERBOSE_ASSERT 1 
-#else
-    #define VERBOSE_ASSERT 0
-#endif
 //ASSERT_EQUALS OF TYPES
-bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc);
+extern TestResult unitResults;
+static inline bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
+    clock_t now = clock();
+
+    unitResults.totalAsserts++;
+
+    bool result = (expected == actual);
+
+    if(result){
+        unitResults.assertsPassed++;
+    }else{
+        unitResults.assertsFailed++;
+    }
+
+    clock_t difference = clock() - now;
+    long msec = difference * 1000 /  CLOCKS_PER_SEC;
+    reportAssertInt("assertEqualsInt", result, expected, actual, msec, loc);
+    return result;
+}
 
 #define assertEqualsInt(exp, act) \
     ASSERT_EQUALS_INT((exp), (act), &CUR_SOURCE_LOCATION);
