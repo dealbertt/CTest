@@ -195,13 +195,8 @@ The framework uses ANSI color codes:
 
 - `red()` – Failures
 - `green()` – Successes
-- `yellow()`, `blue()`, `white()` – Neutral/informational
-- `clear()` – Clears terminal output
 
 These macros can be used in user code for custom formatting as well.
 
 ---
 
-## License
-
-*Include your license here if applicable.*
