@@ -8,13 +8,11 @@
 
 __attribute__((constructor))
 void printHello(){
-    printf("Hello World\n");
     //Initialize unitResult (maybe)
 }
 
 __attribute__((destructor))
 void printGoodBye(){
-    printf("Bye World\n");
     reportTestResults();
 }
 
