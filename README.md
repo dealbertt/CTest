@@ -61,6 +61,16 @@ gcc main.c -o whatevername -lctest -DVERBOSE_ASSERT_RESULT
 ```
 When using this option, you can expect an output like this:  
 
+```cmd
+✓[PASSED]: assertEqualsFloat
+Time Taken: 0 ms
+----------------------
+✗[FAILED]: assertEqualsDouble
+On file: test/main.c | Line: 54 | Function: main
+Time Taken: 0 ms
+Expected: 2 vs Actual: 4
+----------------------
+```
 
 ---
 
