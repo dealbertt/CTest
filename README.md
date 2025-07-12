@@ -59,6 +59,9 @@ By default, passed asserts are not displayed, meaning only the asserts that fail
 ```cmd
 gcc main.c -o whatevername -lctest -DVERBOSE_ASSERT_RESULT
 ```
+When using this option, you can expect an output like this:  
+
+
 ---
 
 ## Test Groups & Running Tests

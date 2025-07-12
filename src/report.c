@@ -21,7 +21,6 @@ int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken)
 
 int reportAssertFooter(long timeTaken){
     printf("Time Taken: %ld ms\n", timeTaken);
-    printf("----------------------\n");
     fflush(stdout);
     return 0;
 }
