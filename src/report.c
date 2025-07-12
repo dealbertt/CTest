@@ -21,6 +21,7 @@ int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken)
 
 int reportAssertFooter(long timeTaken){
     printf("Time Taken: %ld ms\n", timeTaken);
+    printf("----------------------\n");
     fflush(stdout);
     return 0;
 }
@@ -72,8 +73,3 @@ int checkEqualArrayDouble(double array1[], double array2[]){
     }
     return i;
 }
-
-
-
-
-

@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include "../include/ctest.h"
 
-
 TestResult unitResults = {0, 0, 0};
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
@@ -45,11 +44,6 @@ int runTests(TestGroup *group){
 
 
 //ASSERTION PART --------------------------------
-void displayAssertResults(){
-    for(int i = 0; i < MAX_ASSERTS; i++){
-
-    }
-}
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression){
     if(!expr){
         printf("Assertion Failed! ");
@@ -78,18 +72,3 @@ bool testAssert(bool expr, const sourceLocation *loc, const char *expression, Te
     }
 
 }
-
-
-//ASSERT_EQUALS OF TYPES
-
-//ASSERT_NOT_EQUALS OF TYPES
-//--------------------------------------------------------
-
-
-//ASSERT BOOLEANS
-
-//--------------------------------------------------------
-
-//ASSERT NULL / NOT NULL
-
-//--------------------------------------------------------

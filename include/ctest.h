@@ -86,10 +86,8 @@ static inline int reportAssertInt(char *message, bool passed, int expected, int 
     if(!passed){
         reportAssertFailed(message, loc, timeTaken);
         printf("Expected: %d vs Actual: %d\n", expected, actual);
-        printf("----------------------\n");
     }else if(VERBOSE_ASSERT) {
         reportAssertPassed(message, timeTaken);
-        printf("----------------------\n");
     }
     return 0;
 }
@@ -759,7 +757,7 @@ static inline bool ASSERT_NOT_EQUALS_ARRAY_DOUBLE(double expected[], double actu
     long msec = difference /  CLOCKS_PER_SEC;
 
     bool isAsserEqual = false;
-    reportAssertArrayDouble("AssertNotEqualsArrayFloat", result, expected, actual, isAsserEqual, msec, loc);
+    reportAssertArrayDouble("AssertNotEqualsArrayDouble", result, expected, actual, isAsserEqual, msec, loc);
     return result;
 }
 #define assertNotEqualsArrayDouble(exp, act) \
@@ -831,7 +829,7 @@ static inline bool ASSERT_NULL(void *expr, const sourceLocation *loc){
         reportAssertNULL("assertNULL", true, "NULL", "NULL", 0, loc);
     }else{
         //printf("assertNotNull: Failed |\n"); 
-        reportAssertNULL("assertNULL", false, "NULL", "NULL", 0, loc);
+        reportAssertNULL("assertNULL", false, "NULL", "NotNULL", 0, loc);
     }
     return result;
 }
