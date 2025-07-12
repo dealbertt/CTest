@@ -29,6 +29,7 @@ int main(){
     addTest(&group, "First try", &test);
     runTests(&group);
     */
+
     FILE *Emptyptr = NULL;
     FILE *ptr = fopen("test/main.c", "r");
 

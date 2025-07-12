@@ -72,7 +72,7 @@ typedef struct{
 int reportAssertPassed(char *message, long timeTaken);
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
 int reportAssertFooter(long timeTaken);
-
+int reportTestResults();
 
 //THIS MIGHT NEED SOME REFINIMENT
 int checkDifferenceArrayInt(int array1[], int array2[]);
@@ -246,8 +246,6 @@ static inline bool ASSERT_EQUALS_SHORT(short expected, short actual, const sourc
     }else{
         unitResults.assertsFailed++;
         printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
-
-        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -522,7 +520,7 @@ static inline bool ASSERT_NOT_EQUALS_INT(int expected, int actual, const sourceL
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -545,7 +543,7 @@ static inline bool ASSERT_NOT_EQUALS_SHORT(short expected, short actual, const s
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -568,7 +566,7 @@ static inline bool ASSERT_NOT_EQUALS_LONG(long expected, long actual, const sour
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -591,7 +589,7 @@ static inline bool ASSERT_NOT_EQUALS_FLOAT(float expected, float actual, const s
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -615,7 +613,7 @@ static inline bool ASSERT_NOT_EQUALS_DOUBLE(double expected, double actual, cons
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -638,7 +636,7 @@ static inline bool ASSERT_NOT_EQUALS_CHAR(char expected, char actual, const sour
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -661,7 +659,7 @@ static inline bool ASSERT_NOT_EQUALS_STR(char *expected, char *actual, const sou
         unitResults.assertsPassed++;
     }else{
         //printf("assertNotEquals(int): Failed | %d == %d\n", expected, actual); 
-        unitResults.assertsPassed++;
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -789,8 +787,10 @@ static inline bool ASSERT_TRUE(bool actual, const sourceLocation *loc){
 
     if(actual){
         //printf("assertTrue: Passed | %d == true\n", actual); 
+        unitResults.assertsPassed++;
     }else{
         //printf("assertTrue: Failed | %d != true\n", actual); 
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -809,8 +809,10 @@ static inline bool ASSERT_FALSE(bool actual, const sourceLocation *loc){
     clock_t now = clock();
     if(!actual){
         //printf("assertFalse: Passed | %d == false\n", actual); 
+        unitResults.assertsPassed++;
     }else{
         //printf("assertFalse: Failed | %d != false\n", actual); 
+        unitResults.assertsFailed++;
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
@@ -830,9 +832,11 @@ static inline bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc){
     if(result){
         //printf("assertNotNull: Passed |\n"); 
         reportAssertNULL("assertNotNULL", true, "Not NULL", "Not NULL",0, loc);
+        unitResults.assertsPassed++;
     }else{
         //printf("assertNotNull: Failed |\n"); 
         reportAssertNULL("assertNotNULL", false, "Not NULL", "NULL", 0, loc);
+        unitResults.assertsFailed++;
     }
     return result;
 }
@@ -841,13 +845,16 @@ static inline bool ASSERT_NOT_NULL(void *expr, const sourceLocation *loc){
     ASSERT_NOT_NULL((Expr), &CUR_SOURCE_LOCATION);
 
 static inline bool ASSERT_NULL(void *expr, const sourceLocation *loc){
+    unitResults.totalAsserts++;
     bool result = (expr == NULL);
     if(result){
         //printf("assertNotNull: Passed |\n"); 
         reportAssertNULL("assertNULL", true, "NULL", "NULL", 0, loc);
+        unitResults.assertsFailed++;
     }else{
         //printf("assertNotNull: Failed |\n"); 
         reportAssertNULL("assertNULL", false, "NULL", "NotNULL", 0, loc);
+        unitResults.assertsFailed++;
     }
     return result;
 }

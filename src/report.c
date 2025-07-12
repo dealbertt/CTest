@@ -72,3 +72,10 @@ int checkEqualArrayDouble(double array1[], double array2[]){
     }
     return i;
 }
+
+int reportTestResults(){
+    printf("Run summary:\n");
+    printf("Type\tTotal\tRan\tPassed\tFailed\n");
+    printf("asserts\t%d\t%d\t%d\t%d\n",unitResults.totalAsserts, unitResults.totalAsserts, unitResults.assertsPassed, unitResults.assertsFailed);
+    return 0;
+}

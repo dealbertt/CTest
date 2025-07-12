@@ -6,6 +6,18 @@
 #include <unistd.h>
 #include "../include/ctest.h"
 
+__attribute__((constructor))
+void printHello(){
+    printf("Hello World\n");
+    //Initialize unitResult (maybe)
+}
+
+__attribute__((destructor))
+void printGoodBye(){
+    printf("Bye World\n");
+    reportTestResults();
+}
+
 TestResult unitResults = {0, 0, 0};
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
