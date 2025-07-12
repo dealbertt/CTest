@@ -35,6 +35,11 @@ If you want to completely remove the library from your system, just execute the 
 ```make
 sudo make uninstall
 ```
+You can also delete the object files created using the command:  
+
+```make
+make clean
+```
 
 Include `ctest.h` in your project and link against the implementation file (not shown here). 
 
@@ -48,6 +53,11 @@ When compiling, make sure to include the following flag:
 
 ```cmd
 gcc main.c -o whatevername -lctest
+```
+By default, passed asserts are not displayed, meaning only the asserts that failed will showup at run time, if you wish to see both the passed and failed asserts, you can compile the program with the following flag:  
+
+```cmd
+gcc main.c -o whatevername -lctest -DVERBOSE_ASSERT_RESULT
 ```
 ---
 
