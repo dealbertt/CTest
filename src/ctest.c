@@ -53,7 +53,10 @@ int addTest(TestGroup *group, CTest *test){
     group->testCount++;
     return -1;
 }
-
+int runTest(CTest *test){
+    test->func();
+    return 0;
+}
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
         printf("Running test: %s\n", group->test[i].name);
