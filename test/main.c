@@ -27,7 +27,7 @@ int main(){
     TestGroup group;
     initGroup(&group, "Test group");
     CTest test3 = createTest("Test 1", test2);
-    addTest(&group, "First try", &test3);
+    addTest(&group, &test3);
     runGroup(&group);
     return 1;
 

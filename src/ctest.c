@@ -42,13 +42,12 @@ int initGroup(TestGroup *group, const char *name){
 }
 
 //Function to add a Test to a group
-int addTest(TestGroup *group, const char *name, CTest *test){
-    group->testCount++;
+int addTest(TestGroup *group, CTest *test){
     int i = group->testCount;
 
     group->test[i] = *test;
-    strncpy(group->test[i].name, name, sizeof(group->test[i].name) - 1);
-    group->test[i].name[sizeof(group->test[i].name) - 1] = '\0';
+    //strncpy(group->test[i].name, name, sizeof(group->test[i].name) - 1);
+    //group->test[i].name[sizeof(group->test[i].name) - 1] = '\0';
     printf("Test %s added succesfully!\n", group->test[i].name);
     testResults.totalTests++;
     group->testCount++;

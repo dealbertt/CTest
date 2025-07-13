@@ -60,7 +60,7 @@ typedef struct{;
 
 
 int initGroup(TestGroup *group, const char *name);
-int addTest(TestGroup *group, const char *name, CTest *test);
+int addTest(TestGroup *group, CTest *test);
 int runGroup(TestGroup *group);
 CTest createTest(const char *name, void (*func)(TestResult *res));
 
