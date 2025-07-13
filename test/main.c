@@ -15,20 +15,21 @@ void test_add(TestResult *res){
 }
 
 void test2(TestResult *res){
-
+    printf("Boo\n");
 }
 
 void test3(void){
     printf("Nothing");
     return;
 }
+
 int main(){
-    /*
     TestGroup group;
-    initGroup(&group);
-    addTest(&group, "First try", &test);
-    runTests(&group);
-    */
+    initGroup(&group, "Test group");
+    CTest test3 = createTest("Test 1", test2);
+    addTest(&group, "First try", &test3);
+    runGroup(&group);
+    return 1;
 
     FILE *Emptyptr = NULL;
     FILE *ptr = fopen("test/main.c", "r");

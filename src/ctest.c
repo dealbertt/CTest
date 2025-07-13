@@ -20,36 +20,45 @@ AssertResult unitResults = {0, 0, 0}; //struct in charge of the results of all t
 TestResult testResults = {0, 0, 0}; //struct in charge of the results of the different tests that the user makes
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
+CTest createTest(const char *name, void (*func)(TestResult *res)){
+    CTest createdTest; 
+    strncpy(createdTest.name, name, sizeof(createdTest.name) - 1);
+    createdTest.func = func;
+    createdTest.passed = false;
+    return createdTest;
+}
 
-int initGroup(TestGroup *group){
+int initGroup(TestGroup *group, const char *name){
+    group->testCount = 0;
+    group->groupResult.totalTests = 0;  
+    group->groupResult.testsFailed = 0;  
+    group->groupResult.testsPassed = 0;  
+
+    strncpy(group->name, name, sizeof(group->name) - 1);
     for(int i = 0; i < MAX_TESTS; i++){
-        group->testOccupied[i] = false;
+        memset(group->test[i].name, '\0', sizeof(group->test[i].name));
     }
     return 0;
 }
 
+//Function to add a Test to a group
 int addTest(TestGroup *group, const char *name, CTest *test){
-    for(int i = 0; i < MAX_TESTS; i++){
-        if(!group->testOccupied[i]){
-            group->test[i] = *test;
-            strncpy(group->test[i].name, name, sizeof(group->test[i].name) - 1);
-            group->test[i].name[sizeof(group->test[i].name) - 1] = '\0';
-            printf("Test %s added succesfully!\n", group->test[i].name);
-            group->testOccupied[i] = !group->testOccupied[i];
-            testResults.totalTests++;
-            return 0;
-        }
-    }
+    group->testCount++;
+    int i = group->testCount;
+
+    group->test[i] = *test;
+    strncpy(group->test[i].name, name, sizeof(group->test[i].name) - 1);
+    group->test[i].name[sizeof(group->test[i].name) - 1] = '\0';
+    printf("Test %s added succesfully!\n", group->test[i].name);
+    testResults.totalTests++;
+    group->testCount++;
     return -1;
 }
 
-int runTests(TestGroup *group){
-    for(int i = 0; i < MAX_TESTS; i++){
-        if(group->testOccupied[i]){
-            printf("Running test: %s\n", group->test[i].name);
-            group->test[i].func(&group->test[i].res);
-            //testResults.
-        }
+int runGroup(TestGroup *group){
+    for(int i = 0; i < group->testCount; i++){
+        printf("Running test: %s\n", group->test[i].name);
+        group->test[i].func(&group->groupResult);
     }
      
     return 0;
@@ -70,18 +79,16 @@ bool doAssert(bool expr, const sourceLocation *loc, const char *expression){
 }
 
 bool testAssert(bool expr, const sourceLocation *loc, const char *expression, TestResult *result){
-    result->totalAsserts++;
+    result->totalTests++;
     if(!expr){
-        result->assertsFailed++;
-        result->testPassed = expr;
+        result->testsFailed++;
+        result->testsPassed= expr;
         printf("Assertion Failed! ");
         printf("On file %s | line: %u | function: %s\n", loc->fileName, loc->line_number, loc->functionName);
 
         return expr;
     }else{
-        result->assertsPassed++;
-        result->testPassed = expr;
+        result->testsPassed++;
         return expr;
     }
-
 }
