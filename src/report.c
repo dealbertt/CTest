@@ -77,6 +77,6 @@ int reportTestResults(){
     printf("Run summary:\n");
     printf("Type\tTotal\tRan\tPassed\tFailed\n");
     printf("asserts\t%d\t%d\t%d\t%d\n",unitResults.totalAsserts, unitResults.totalAsserts, unitResults.assertsPassed, unitResults.assertsFailed);
-    printf("tests\t%d\t%d\t%d\t%d\n", 0, 0, 0, 0);
+    printf("tests\t%d\t%d\t%d\t%d\n", testResults.totalTests, testResults.totalTests, testResults.testsPassed, testResults.testsFailed);
     return 0;
 }

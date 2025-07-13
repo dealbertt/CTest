@@ -16,7 +16,8 @@ void printGoodBye(){
     reportTestResults();
 }
 
-TestResult unitResults = {0, 0, 0};
+AssertResult unitResults = {0, 0, 0}; //struct in charge of the results of all the asserts that take place
+TestResult testResults = {0, 0, 0}; //struct in charge of the results of the different tests that the user makes
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
 
@@ -35,6 +36,7 @@ int addTest(TestGroup *group, const char *name, CTest *test){
             group->test[i].name[sizeof(group->test[i].name) - 1] = '\0';
             printf("Test %s added succesfully!\n", group->test[i].name);
             group->testOccupied[i] = !group->testOccupied[i];
+            testResults.totalTests++;
             return 0;
         }
     }
@@ -46,6 +48,7 @@ int runTests(TestGroup *group){
         if(group->testOccupied[i]){
             printf("Running test: %s\n", group->test[i].name);
             group->test[i].func(&group->test[i].res);
+            //testResults.
         }
     }
      

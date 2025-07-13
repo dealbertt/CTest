@@ -33,14 +33,18 @@ typedef struct{
     unsigned int totalAsserts;
     unsigned int assertsPassed;
     unsigned int assertsFailed;
-    bool testPassed;
+}AssertResult;
+
+typedef struct{
+    unsigned int totalTests;
+    unsigned int testsPassed;
+    unsigned int testsFailed;
 }TestResult;
 
 typedef struct{
     void(*func)(TestResult *res);
     char name[20];
     bool passed;
-    TestResult res;
 }CTest;
 
 
@@ -210,7 +214,9 @@ static inline int reportAssertNULL(char *message, bool passed, char *expected, c
 bool doAssert(bool expr, const sourceLocation *loc, const char *expression);
 bool testAssert(bool expr, const sourceLocation *loc, const char *expression, TestResult *result);
 //ASSERT_EQUALS OF TYPES
-extern TestResult unitResults;
+extern AssertResult unitResults;
+extern TestResult testResults;
+
 static inline bool ASSERT_EQUALS_INT(int expected, int actual, const sourceLocation *loc){
     clock_t now = clock();
 
