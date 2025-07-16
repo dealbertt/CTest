@@ -45,7 +45,7 @@ typedef struct{
 }TestResult;
 
 typedef struct{
-    void(*func)(TestResult *res);
+    bool (*func)();
     char name[MAX_LENGTH_NAME];
     bool passed;
     long timeTaken;
@@ -65,7 +65,7 @@ int initGroup(TestGroup *group, const char *name);
 int addTest(TestGroup *group, CTest *test);
 int runGroup(TestGroup *group);
 int runTest(CTest *test);
-CTest createTest(const char *name, void (*func)(TestResult *res));
+CTest createTest(const char *name, bool (*func)());
 
 
 void displayAssertResults(void);

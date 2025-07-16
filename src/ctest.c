@@ -21,7 +21,7 @@ AssertResult unitResults = {0, 0, 0}; //struct in charge of the results of all t
 TestResult testResults = {0, 0, 0}; //struct in charge of the results of the different tests that the user makes
 
 AssertStruct arrayAsserts[MAX_ASSERTS];
-CTest createTest(const char *name, void (*func)(TestResult *res)){
+CTest createTest(const char *name, bool (*func)()){
     CTest createdTest; 
     strncpy(createdTest.name, name, sizeof(createdTest.name) - 1);
     createdTest.func = func;
@@ -56,16 +56,20 @@ int addTest(TestGroup *group, CTest *test){
     return -1;
 }
 int runTest(CTest *test){
-    //test->func();
+    clock_t now = clock();    
+    if(test->func()){
+        testResults.testsPassed++;
+    }else{
+        testResults.testsFailed++;
+    }
+    clock_t difference = clock() - now;    
+    test->timeTaken = difference/ CLOCKS_PER_SEC;
     return 0;
 }
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
-        clock_t now = clock();    
         printf("Running test: %s\n", group->test[i].name);
-        group->test[i].func(&group->groupResult);
-        clock_t difference = clock() - now;    
-        group->test[i].timeTaken = difference/ CLOCKS_PER_SEC;
+        runTest(&group->test[i]);
         group->totalTimeTaken += group->test[i].timeTaken;
     }
     printf("Time taken for group %s: %ld\n", group->name, group->totalTimeTaken);

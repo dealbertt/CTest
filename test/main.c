@@ -14,8 +14,9 @@ void test_add(TestResult *res){
     DEBUG_ASSERT(add(-3, -3) == -6, res);
 }
 
-void test2(TestResult *res){
+bool test2(){
     printf("Boo\n");
+    return assertEqualsStr("Foo", "Bar");
 }
 
 void test3(void){
@@ -29,6 +30,7 @@ int main(){
     CTest test3 = createTest("Test 1", test2);
     addTest(&group, &test3);
     runGroup(&group);
+    //runTest(&test3);
 
     FILE *Emptyptr = NULL;
     FILE *ptr = fopen("test/main.c", "r");
