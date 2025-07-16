@@ -48,6 +48,7 @@ typedef struct{
     void(*func)(TestResult *res);
     char name[MAX_LENGTH_NAME];
     bool passed;
+    long timeTaken;
 }CTest;
 
 
@@ -56,6 +57,7 @@ typedef struct{;
     CTest test[MAX_TESTS];
     unsigned int testCount;
     TestResult groupResult;
+    long totalTimeTaken;
 }TestGroup;
 
 

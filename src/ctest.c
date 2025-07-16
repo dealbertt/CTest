@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <time.h>
 #include <unistd.h>
 #include "../include/ctest.h"
 
@@ -30,6 +31,7 @@ CTest createTest(const char *name, void (*func)(TestResult *res)){
 
 int initGroup(TestGroup *group, const char *name){
     group->testCount = 0;
+    group->totalTimeTaken = 0;
     group->groupResult.totalTests = 0;  
     group->groupResult.testsFailed = 0;  
     group->groupResult.testsPassed = 0;  
@@ -54,15 +56,19 @@ int addTest(TestGroup *group, CTest *test){
     return -1;
 }
 int runTest(CTest *test){
-    test->func();
+    //test->func();
     return 0;
 }
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
+        clock_t now = clock();    
         printf("Running test: %s\n", group->test[i].name);
         group->test[i].func(&group->groupResult);
+        clock_t difference = clock() - now;    
+        group->test[i].timeTaken = difference/ CLOCKS_PER_SEC;
+        group->totalTimeTaken += group->test[i].timeTaken;
     }
-     
+    printf("Time taken for group %s: %ld\n", group->name, group->totalTimeTaken);
     return 0;
 }
 

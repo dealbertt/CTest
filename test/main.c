@@ -29,7 +29,6 @@ int main(){
     CTest test3 = createTest("Test 1", test2);
     addTest(&group, &test3);
     runGroup(&group);
-    return 1;
 
     FILE *Emptyptr = NULL;
     FILE *ptr = fopen("test/main.c", "r");
