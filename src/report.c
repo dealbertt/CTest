@@ -72,6 +72,12 @@ int checkEqualArrayDouble(double array1[], double array2[]){
     }
     return i;
 }
+int reportGroupResults(TestGroup *group){
+    printf("Run Summary of Group: %s\n", group->name);
+    printf("Total\tRan\tPassed\tFailed\n");
+    printf("%d\t%d\t%d\t%d\n",group->groupResult.totalTests, group->groupResult.totalTests, group->groupResult.testsPassed, group->groupResult.testsFailed);
+    return 0;
+}
 
 int reportTestResults(){
     printf("Run summary:\n");

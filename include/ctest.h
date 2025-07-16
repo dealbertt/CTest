@@ -84,6 +84,7 @@ typedef struct{
 int reportAssertPassed(char *message, long timeTaken);
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
 int reportAssertFooter(long timeTaken);
+int reportGroupResults(TestGroup *group);
 int reportTestResults();
 
 //THIS MIGHT NEED SOME REFINIMENT

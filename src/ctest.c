@@ -26,6 +26,7 @@ CTest createTest(const char *name, bool (*func)()){
     strncpy(createdTest.name, name, sizeof(createdTest.name) - 1);
     createdTest.func = func;
     createdTest.passed = false;
+    createdTest.timeTaken = 0;
     return createdTest;
 }
 
@@ -53,26 +54,35 @@ int addTest(TestGroup *group, CTest *test){
     printf("Test %s added succesfully!\n", group->test[i].name);
     testResults.totalTests++;
     group->testCount++;
+    group->groupResult.totalTests++;
     return -1;
 }
 int runTest(CTest *test){
     clock_t now = clock();    
     if(test->func()){
         testResults.testsPassed++;
+        return 1;
     }else{
         testResults.testsFailed++;
+        return 0;
     }
     clock_t difference = clock() - now;    
     test->timeTaken = difference/ CLOCKS_PER_SEC;
-    return 0;
+    return -1;
 }
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
         printf("Running test: %s\n", group->test[i].name);
-        runTest(&group->test[i]);
+        int result = runTest(&group->test[i]);
+        if(result == 1){
+            group->groupResult.testsPassed++;
+        }else if(result == 0){
+            group->groupResult.testsFailed++;
+        }
         group->totalTimeTaken += group->test[i].timeTaken;
     }
-    printf("Time taken for group %s: %ld\n", group->name, group->totalTimeTaken);
+    printf("Time taken for group %s: %ld ms\n", group->name, group->totalTimeTaken);
+    reportGroupResults(group);
     return 0;
 }
 
