@@ -40,6 +40,7 @@ typedef struct{
 //Struct in charge of tracking all the tests across the program
 typedef struct{
     unsigned int totalTests;
+    unsigned int runTests;
     unsigned int testsPassed;
     unsigned int testsFailed;
 }TestResult;
@@ -48,7 +49,7 @@ typedef struct{
     bool (*func)();
     char name[MAX_LENGTH_NAME];
     bool passed;
-    long timeTaken;
+    double timeTaken;
 }CTest;
 
 
@@ -57,7 +58,7 @@ typedef struct{;
     CTest test[MAX_TESTS];
     unsigned int testCount;
     TestResult groupResult;
-    long totalTimeTaken;
+    double totalTimeTaken;
 }TestGroup;
 
 

@@ -34,6 +34,7 @@ int initGroup(TestGroup *group, const char *name){
     group->testCount = 0;
     group->totalTimeTaken = 0;
     group->groupResult.totalTests = 0;  
+    group->groupResult.runTests = 0;  
     group->groupResult.testsFailed = 0;  
     group->groupResult.testsPassed = 0;  
 
@@ -62,31 +63,37 @@ int addTest(TestGroup *group, CTest *test){
     testResults.totalTests++;
     group->testCount++;
     group->groupResult.totalTests++;
-    return -1;
+    return 0;
 }
 int runTest(CTest *test){
     clock_t now = clock();    
-    if(test->func()){
+    bool result = test->func();
+    clock_t difference = clock();    
+
+    test->timeTaken = (double)(difference - now)/ CLOCKS_PER_SEC;
+
+    if(result){
         testResults.testsPassed++;
         return 1;
     }else{
         testResults.testsFailed++;
-        return 0;
+        return -1;
     }
-    clock_t difference = clock() - now;    
-    test->timeTaken = difference/ CLOCKS_PER_SEC;
-    return -1;
+    return 0;
 }
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
         printf("Running test: %s\n", group->test[i].name);
         int result = runTest(&group->test[i]);
+
         if(result == 1){
             group->groupResult.testsPassed++;
         }else if(result == 0){
             group->groupResult.testsFailed++;
         }
+
         group->totalTimeTaken += group->test[i].timeTaken;
+        group->groupResult.runTests++;
     }
     reportGroupResults(group);
     return 0;

@@ -22,13 +22,24 @@ bool funcTest3(){
     return assertEqualsInt(2, add(1,1));
 }
 
+bool funcTest4(){
+    //this number might be too big hehe :)
+    volatile int dummy = 0;
+    for(int i = 0; i < 100000000; i++){
+        dummy += i;
+    }
+    return true;
+}
+
 int main(){
     TestGroup group;
     initGroup(&group, "Test group");
     CTest test1 = createTest("Test 1", funcTest2);
     CTest test2 = createTest("Test 2", funcTest3);
+    CTest test3 = createTest("Test 3", funcTest4);
     addTest(&group, &test1);
     addTest(&group, &test2);
+    addTest(&group, &test3);
     runGroup(&group);
 
     /*

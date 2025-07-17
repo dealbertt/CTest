@@ -2,6 +2,7 @@
 #include "../include/ctest.h"
 
 int reportAssertPassed(char *message, long timeTaken){
+    printf("----------------------\n");
     green();
     printf("\xE2\x9C\x93[PASSED]: ");
     white();
@@ -11,6 +12,7 @@ int reportAssertPassed(char *message, long timeTaken){
 }
 
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken){
+    printf("----------------------\n");
     red();
     printf("\xE2\x9C\x97[FAILED]: ");
     white();
@@ -75,8 +77,8 @@ int checkEqualArrayDouble(double array1[], double array2[]){
 int reportGroupResults(TestGroup *group){
     printf("Run Summary of group %s\n", group->name);
     printf("Total\tRan\tPassed\tFailed\n");
-    printf("%d\t%d\t%d\t%d\n",group->groupResult.totalTests, group->groupResult.totalTests, group->groupResult.testsPassed, group->groupResult.testsFailed);
-    printf("Time taken to run the entire group: %ld ms\n", group->totalTimeTaken);
+    printf("%d\t%d\t%d\t%d\n",group->groupResult.totalTests, group->groupResult.runTests, group->groupResult.testsPassed, group->groupResult.testsFailed);
+    printf("Time taken to run the entire group: %lf ms\n", group->totalTimeTaken);
     printf("----------------------\n");
     return 0;
 }
@@ -85,7 +87,7 @@ int reportTestResults(){
     printf("Run summary of all tests across the program\n");
     printf("Type\tTotal\tRan\tPassed\tFailed\n");
     printf("asserts\t%d\t%d\t%d\t%d\n",unitResults.totalAsserts, unitResults.totalAsserts, unitResults.assertsPassed, unitResults.assertsFailed);
-    printf("tests\t%d\t%d\t%d\t%d\n", testResults.totalTests, testResults.totalTests, testResults.testsPassed, testResults.testsFailed);
+    printf("tests\t%d\t%d\t%d\t%d\n", testResults.totalTests, testResults.runTests, testResults.testsPassed, testResults.testsFailed);
     printf("----------------------\n");
     return 0;
 }
