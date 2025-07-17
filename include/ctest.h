@@ -14,6 +14,7 @@
 #define white() printf("\033[0m")
 #define MAX_TESTS 20
 #define MAX_ASSERTS 50
+#define MAX_LENGTH_NAME 64
 
 
 #if DEBUG_ASSERT_ENABLED
@@ -29,12 +30,14 @@
 #define VERBOSE_ASSERT 0
 #endif
 
+//Struct in charge of tracking all the asserts across the program
 typedef struct{
     unsigned int totalAsserts;
     unsigned int assertsPassed;
     unsigned int assertsFailed;
 }AssertResult;
 
+//Struct in charge of tracking all the tests across the program
 typedef struct{
     unsigned int totalTests;
     unsigned int testsPassed;
@@ -42,22 +45,27 @@ typedef struct{
 }TestResult;
 
 typedef struct{
-    void(*func)(TestResult *res);
-    char name[20];
+    bool (*func)();
+    char name[MAX_LENGTH_NAME];
     bool passed;
+    long timeTaken;
 }CTest;
 
 
 typedef struct{;
-    char name[20];
+    char name[MAX_LENGTH_NAME];
     CTest test[MAX_TESTS];
-    bool testOccupied[MAX_TESTS];
+    unsigned int testCount;
+    TestResult groupResult;
+    long totalTimeTaken;
 }TestGroup;
 
 
-int initGroup(TestGroup *group);
-int addTest(TestGroup *group, const char *name, CTest *test);
-int runTests(TestGroup *group);
+int initGroup(TestGroup *group, const char *name);
+int addTest(TestGroup *group, CTest *test);
+int runGroup(TestGroup *group);
+int runTest(CTest *test);
+CTest createTest(const char *name, bool (*func)());
 
 
 void displayAssertResults(void);
@@ -76,6 +84,7 @@ typedef struct{
 int reportAssertPassed(char *message, long timeTaken);
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
 int reportAssertFooter(long timeTaken);
+int reportGroupResults(TestGroup *group);
 int reportTestResults();
 
 //THIS MIGHT NEED SOME REFINIMENT
