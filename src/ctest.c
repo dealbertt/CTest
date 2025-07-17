@@ -37,10 +37,17 @@ int initGroup(TestGroup *group, const char *name){
     group->groupResult.testsFailed = 0;  
     group->groupResult.testsPassed = 0;  
 
-    strncpy(group->name, name, sizeof(group->name) - 1);
-    for(int i = 0; i < MAX_TESTS; i++){
-        memset(group->test[i].name, '\0', sizeof(group->test[i].name));
+    if(strncpy(group->name, name, sizeof(group->name) - 1) == NULL){
+        perror("Error trying to assign the name of the group!");
+        return -1;
     }
+    for(int i = 0; i < MAX_TESTS; i++){
+        if(memset(group->test[i].name, '\0', sizeof(group->test[i].name)) == NULL){
+            printf("Error trying to assing the name of test on index %d!\n", i);
+            return -1;
+        }
+    }
+    printf("Test group %s created and initialized successfully!\n", group->name);
     return 0;
 }
 

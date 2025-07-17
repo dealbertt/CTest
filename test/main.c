@@ -14,25 +14,24 @@ void test_add(TestResult *res){
     DEBUG_ASSERT(add(-3, -3) == -6, res);
 }
 
-bool test2(){
-    printf("Boo\n");
+bool funcTest2(){
     return assertEqualsStr("Foo", "Bar");
 }
 
-void test3(void){
-    printf("Nothing");
-    return;
+bool funcTest3(){
+    return assertEqualsInt(2, add(1,1));
 }
 
 int main(){
     TestGroup group;
     initGroup(&group, "Test group");
-    CTest test3 = createTest("Test 1", test2);
-    addTest(&group, &test3);
+    CTest test1 = createTest("Test 1", funcTest2);
+    CTest test2 = createTest("Test 2", funcTest3);
+    addTest(&group, &test1);
+    addTest(&group, &test2);
     runGroup(&group);
-    runTest(&test3);
 
-    return- 1;
+    /*
     FILE *Emptyptr = NULL;
     FILE *ptr = fopen("test/main.c", "r");
 
@@ -83,6 +82,7 @@ int main(){
     assertNotEqualsArrayInt(array1, array2); // should fail aswell
     assertNotEqualsShort(e, f);
     assertNotEqualsLong(g, h);
+    */
 
 
     return 0;
