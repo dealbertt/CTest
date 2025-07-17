@@ -81,7 +81,6 @@ int runGroup(TestGroup *group){
         }
         group->totalTimeTaken += group->test[i].timeTaken;
     }
-    printf("Time taken for group %s: %ld ms\n", group->name, group->totalTimeTaken);
     reportGroupResults(group);
     return 0;
 }
