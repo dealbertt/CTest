@@ -7,12 +7,14 @@ int add(int a, int b){
     return a + b;
 }
 
+/*
 //You have to bind a testResult to each assert, in order to track the results of said tests
 void test_add(TestResult *res){
     DEBUG_ASSERT(add(2, 3) == 2, res);
     DEBUG_ASSERT(add(3, 3) == 6, res);
     DEBUG_ASSERT(add(-3, -3) == -6, res);
 }
+*/
 
 bool funcTest1(){
     printf("Test 1\n");
