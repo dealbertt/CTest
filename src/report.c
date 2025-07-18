@@ -14,7 +14,7 @@ int reportAssertPassed(char *message, long timeTaken){
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken){
     printf("----------------------\n");
     red();
-    printf("\xE2\x9C\x97[FAILED]: ");
+    printf("\xE2\x9C\x97[FAILED ASSERT]: ");
     white();
     printf("%s\nOn file: %s | Line: %u | Function: %s\n", message, loc->fileName, loc->line_number, loc->functionName);
     reportAssertFooter(timeTaken);

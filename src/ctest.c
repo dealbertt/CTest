@@ -65,7 +65,7 @@ int addTest(TestGroup *group, CTest *test){
     group->groupResult.totalTests++;
     return 0;
 }
-int runTest(CTest *test){
+bool runTest(CTest *test){
     clock_t now = clock();    
     bool result = test->func();
     clock_t difference = clock();    
@@ -74,22 +74,25 @@ int runTest(CTest *test){
 
     if(result){
         testResults.testsPassed++;
-        return 1;
     }else{
         testResults.testsFailed++;
-        return -1;
     }
-    return 0;
+    return result;
 }
 int runGroup(TestGroup *group){
     for(int i = 0; i < group->testCount; i++){
-        printf("Running test: %s\n", group->test[i].name);
-        int result = runTest(&group->test[i]);
+        printf("Running %s | Index: %d\n", group->test[i].name, i);
+        bool result = runTest(&group->test[i]);
 
-        if(result == 1){
+        printf("Result of test %d: %d\n", i, result);
+        if(result){
             group->groupResult.testsPassed++;
-        }else if(result == 0){
+        }else{
             group->groupResult.testsFailed++;
+            red();
+            printf("\xE2\x9C\x97[FAILED TEST]: ");
+            white();
+            printf("Test number %d with name %s failed!\n", i, group->test[i].name);
         }
 
         group->totalTimeTaken += group->test[i].timeTaken;

@@ -65,7 +65,7 @@ typedef struct{;
 int initGroup(TestGroup *group, const char *name);
 int addTest(TestGroup *group, CTest *test);
 int runGroup(TestGroup *group);
-int runTest(CTest *test);
+bool runTest(CTest *test);
 CTest createTest(const char *name, bool (*func)());
 
 
@@ -382,18 +382,21 @@ static inline bool ASSERT_EQUALS_STR(char *expected, char *actual, const sourceL
 
     clock_t now = clock();
 
-    bool result = expected == actual;
-    if(result){
+    bool result;
+    if(strcmp(expected, actual) == 0){
         //printf("assertEquals(string): Passed | %s == %s\n", expected, actual); 
         unitResults.assertsPassed++;
+        result = true;
     }else{
         //printf("assertEquals(string): Failed | %s != %s\n", expected, actual); 
         unitResults.assertsFailed++;
+        result = false; 
     }
     clock_t difference = clock() - now;
     long msec = difference /  CLOCKS_PER_SEC;
 
     reportAssertString("assertEqualsString", result, expected, actual, msec, loc);
+    printf("Result in int: %d\n", result);
     return result;
 }
 #define assertEqualsStr(exp, act) \

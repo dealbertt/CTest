@@ -14,15 +14,16 @@ void test_add(TestResult *res){
     DEBUG_ASSERT(add(-3, -3) == -6, res);
 }
 
-bool funcTest2(){
+bool funcTest1(){
+    printf("Test 1\n");
     return assertEqualsStr("Foo", "Bar");
 }
 
-bool funcTest3(){
+bool funcTest2(){
     return assertEqualsInt(2, add(1,1));
 }
 
-bool funcTest4(){
+bool funcTest3(){
     //this number might be too big hehe :)
     volatile int dummy = 0;
     for(int i = 0; i < 100000000; i++){
@@ -34,9 +35,9 @@ bool funcTest4(){
 int main(){
     TestGroup group;
     initGroup(&group, "Test group");
-    CTest test1 = createTest("Test 1", funcTest2);
-    CTest test2 = createTest("Test 2", funcTest3);
-    CTest test3 = createTest("Test 3", funcTest4);
+    CTest test1 = createTest("Test 1", funcTest1);
+    CTest test2 = createTest("Test 2", funcTest2);
+    CTest test3 = createTest("Test 3", funcTest3);
     addTest(&group, &test1);
     addTest(&group, &test2);
     addTest(&group, &test3);
