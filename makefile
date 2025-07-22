@@ -7,7 +7,7 @@ OBJ_DIR = obj
 LIB_DIR = lib
 
 TARGET = libctest.a
-TARGET_PATH = $(LIB_DIR)/$(TARGET) # Target archive path
+TARGET_PATH = $(LIB_DIR)/$(TARGET) 
 
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
