@@ -200,3 +200,8 @@ These macros can be used in user code for custom formatting as well.
 
 ---
 
+## Examples folder  
+
+To know how to use the library, you can find an example folder with some examples on how to use the library properly
+
+---
