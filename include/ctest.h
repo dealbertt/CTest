@@ -30,6 +30,8 @@
 #define VERBOSE_ASSERT 0
 #endif
 
+//STRUCTS 
+//----------------
 //Struct in charge of tracking all the asserts across the program
 typedef struct{
     unsigned int totalAsserts;
@@ -52,24 +54,6 @@ typedef struct{
     double timeTaken;
 }CTest;
 
-
-typedef struct{;
-    char name[MAX_LENGTH_NAME];
-    CTest test[MAX_TESTS];
-    unsigned int testCount;
-    TestResult groupResult;
-    double totalTimeTaken;
-}TestGroup;
-
-
-int initGroup(TestGroup *group, const char *name);
-int addTest(TestGroup *group, CTest *test);
-int runGroup(TestGroup *group);
-bool runTest(CTest *test);
-CTest createTest(const char *name, bool (*func)());
-
-
-void displayAssertResults(void);
 typedef struct {
     const char *fileName;
     unsigned line_number;
@@ -81,6 +65,28 @@ typedef struct{
     sourceLocation loc;
     bool passed;
 }AssertStruct;
+
+
+typedef struct{;
+    char name[MAX_LENGTH_NAME];
+    CTest test[MAX_TESTS];
+    unsigned int testCount;
+    TestResult groupResult;
+    double totalTimeTaken;
+}TestGroup;
+//----------------
+
+
+//FUNCTION DEFINITIONS
+//----------------
+int initGroup(TestGroup *group, const char *name);
+int addTest(TestGroup *group, CTest *test);
+int runGroup(TestGroup *group);
+bool runTest(CTest *test);
+CTest createTest(const char *name, bool (*func)());
+
+
+void displayAssertResults(void);
 
 int reportAssertPassed(char *message, long timeTaken);
 int reportAssertFailed(char *message, const sourceLocation *loc, long timeTaken);
@@ -95,7 +101,10 @@ int checkDifferenceArrayFloat(float array1[], float array2[]);
 int checkEqualArrayFloat(float array1[], float array2[]);
 int checkDifferenceArrayDouble(double array1[], double array2[]);
 int checkEqualArrayDouble(double array1[], double array2[]);
+//----------------
 
+//FUNCTION IMPLEMENTATIONS 
+//----------------
 static inline int reportAssertInt(char *message, bool passed, int expected, int actual, long timeTaken, const sourceLocation *loc){
     if(!passed){
         reportAssertFailed(message, loc, timeTaken);
@@ -877,8 +886,8 @@ static inline bool ASSERT_NULL(void *expr, const sourceLocation *loc){
     }
     return result;
 }
+//----------------
 
 #define assertNull(Expr) \
     ASSERT_NULL((Expr), &CUR_SOURCE_LOCATION);
-
 #endif
