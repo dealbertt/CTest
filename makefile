@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Werror -O2 -Iinclude
 
 SRC_DIR = src
